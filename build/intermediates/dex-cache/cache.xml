@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/cn.finalteam/toolsfinal/1.1.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="966da5b6a8bfdef0bfc660e349f8765dde5cb6f3">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/cn.finalteam-toolsfinal-1.1.5_537bd4e0b74012897aa8e46dfa963ebaadbd2bd4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.2/ccde00f7ccc77af5a6d5752e2cb21f6d8998289f/okhttp-3.4.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ccde00f7ccc77af5a6d5752e2cb21f6d8998289f">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/okhttp-3.4.2_da91c626915b8074e19cbb5e9c8093952ea08011.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/butterknife-annotations-8.4.0_3c50254d989370ddde541093f4ef9e8be4021563.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.liulishuo.filedownloader/library/0.2.5/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a1018b14b9909db72c75b5b3d0001418a8e36657">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.liulishuo.filedownloader-library-0.2.5_d6d4896d7f5ee357f25525af32c0003bab4378f3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_bb114f055824b506a645f5160af08d106a630fd4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-24.2.1_9b47c04c03fb6fbb7a6e3cac96fb25604ff4b5e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_9ee83806dedca0b1f2ae67813fe95da46204279c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/application/android_sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/support-annotations-24.2.1_da308aa63182926115e306aab99cd41d5724f2e2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/cn.finalteam/filedownloaderfinal/1.0.7/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b5cfbe476cb4cb515477b3f7c165df057b32d7ba">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/cn.finalteam-filedownloaderfinal-1.0.7_9133f4609afbf06b99bf0e820d3c7fea24087064.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_2c043aac2a31d870236d38e101fb919e0df813db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-24.2.1_bab20d631e5bb329e3ecdd8c80c0be4566be76ca.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_e815345c4e6fa07ad73f5c51ea5addf404f774ec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/palette-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b7105277df9a8013468215c451ddefac2499d3a">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-palette-v7-24.2.1_80e4e01df77a2bae4ca6fd55a07daa23544d1ede.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.jakewharton/butterknife/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.jakewharton-butterknife-8.4.0_dc834223502c767dc3be16b6a763beb08198b88e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-24.2.1_43c4172631daeb3752f396dce8bd1b521445f8a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_5169dda0cb41fcd5191945c9d6d98a7ffb7696c8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-24.2.1_ccfc3cf5216487f4470738f3e74f06af90c2c96a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/okio-1.9.0_7d048b9ee962acc38434ac0ee86e26e29b60fe4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-24.2.1_2a2c77fc75ce73621052ef99cc7731daae01fa0c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_9e7ade043a0e6cf3421ba0ecaf5fdbd62ddd55a0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_852c9a912d9392ab711ee45efd595e265ba5a30f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.0/c4ba5371a29ac9b2ad6129b1d39ea38750043eff/gson-2.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/gson-2.8.0_90f70f2c479eb5f1b74888e830b341d0cf9ed6b7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-24.2.1_0d639cded87857e8974ff6f37541ef232e35b108.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.2.1_8409b3c10487709b8ce38ee37293877be7c43d6c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_b4769ea347205e4b18742b842ac0eff0b4f4c441.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.github.zhaokaiqiang.klog/library/1.5.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b0320408c54f5124a881ab10ee27a10d3fb73de8">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.github.zhaokaiqiang.klog-library-1.5.0_63c81322227b67e1a394a160b83e89df98d66441.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-design-24.2.1_d0adcdb9b64ef8f78d07b0181b98a0663ccd125d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/shuji/code/MusicDownloader/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/Users/shuji/code/MusicDownloader/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-24.2.1_7c84ee7e03e775f680caf64f4bb48935fc2e14ec.jar" />
+    </item>
+
+</items>
