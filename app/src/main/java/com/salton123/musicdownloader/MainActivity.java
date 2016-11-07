@@ -13,7 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -26,13 +26,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.socks.library.KLog;
 
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.finalteam.filedownloaderfinal.FileDownloaderCallback;
-import cn.finalteam.filedownloaderfinal.SimpleFileDownloader;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -68,13 +70,13 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
         mResultAdapter = new ResultAdapter(this);
         suggestionList.setAdapter(mResultAdapter);
-        suggestionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SearchResult searchResult = (SearchResult) adapterView.getItemAtPosition(position);
-                simpleDownloadFile(searchResult.getHqUrl());
-            }
-        });
+//        suggestionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                SearchResult searchResult = (SearchResult) adapterView.getItemAtPosition(position);
+//                simpleDownloadFile(searchResult);
+//            }
+//        });
         searchTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -128,6 +130,12 @@ public class MainActivity extends Activity {
 
     ProgressDialog pd;
 
+
+    private void switchKeyboard() {
+        InputMethodManager m = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
     private void startSearchMusic(String keyword) {
         if (TextUtils.isEmpty(keyword)) {
             Toast.makeText(getApplicationContext(), "输入的内容为空，请重新输入", Toast.LENGTH_SHORT).show();
@@ -142,6 +150,8 @@ public class MainActivity extends Activity {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     pd.dismiss();
+                    switchKeyboard();
+
                 }
 
                 @Override
@@ -156,10 +166,12 @@ public class MainActivity extends Activity {
                         }.getType());
                         mResultAdapter.AddAll(resultList);
                         pd.dismiss();
+                        switchKeyboard();
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "解析查询结果出错：\n" + e.getMessage(), Toast.LENGTH_SHORT);
                         e.printStackTrace();
                         pd.dismiss();
+                        switchKeyboard();
                     }
                 }
             });
@@ -180,24 +192,46 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
+        public View getView(final int position, View convertView, ViewGroup viewGroup) {
             if (convertView == null) {
                 convertView = GetLayoutInflater().inflate(R.layout.adapter_result, null, false);
             }
 
             TextView tv_songName = ViewHolder.get(convertView, R.id.tv_SongName);
-            TextView tv_download_url_sq = ViewHolder.get(convertView, R.id.tv_download_url_sq);
-            TextView tv_download_url_hq = ViewHolder.get(convertView, R.id.tv_download_url_hq);
-            TextView tv_download_url_lq = ViewHolder.get(convertView, R.id.tv_download_url_lq);
+            TextView btn_download_url_hq = ViewHolder.get(convertView, R.id.btn_download_url_hq);
+            TextView btn_download_url_lq = ViewHolder.get(convertView, R.id.btn_download_url_lq);
+            TextView btn_download_url_sq = ViewHolder.get(convertView, R.id.btn_download_url_sq);
             tv_songName.setText(getItem(position) == null ? "找不到歌曲名" : getItem(position).getSongName());
             if (getItem(position) != null && !TextUtils.isEmpty(getItem(position).getSqUrl())) {
-                tv_download_url_sq.setText(getItem(position) == null ? "" : getItem(position).getSqUrl());
+                btn_download_url_sq.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        simpleDownloadFile(getItem(position), getItem(position).getSqUrl());
+                    }
+                });
+            } else {
+                btn_download_url_sq.setVisibility(View.GONE);
             }
             if (getItem(position) != null && !TextUtils.isEmpty(getItem(position).getHqUrl())) {
-                tv_download_url_hq.setText(getItem(position) == null ? "" : getItem(position).getHqUrl());
+                btn_download_url_hq.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        simpleDownloadFile(getItem(position), getItem(position).getHqUrl());
+                    }
+                });
+
+            } else {
+                btn_download_url_hq.setVisibility(View.GONE);
             }
             if (getItem(position) != null && !TextUtils.isEmpty(getItem(position).getLqUrl())) {
-                tv_download_url_lq.setText(getItem(position) == null ? "" : getItem(position).getLqUrl());
+                btn_download_url_lq.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        simpleDownloadFile(getItem(position), getItem(position).getLqUrl());
+                    }
+                });
+            } else {
+                btn_download_url_lq.setVisibility(View.GONE);
             }
 //            tv_download_url_sq.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -221,62 +255,51 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void simpleDownloadFile(String url) {
-        SimpleFileDownloader.downloadFile(url, "/sdcard/",new MyDownloader());
+    private void simpleDownloadFile(final SearchResult result, final String url) {
+        x.task().autoPost(new Runnable() {
+            @Override
+            public void run() {
+                RequestParams rp = new RequestParams(url);
+                rp.setSaveFilePath("/sdcard/music/" + result.getSongName() + ".mp3");
+                x.http().get(rp, new org.xutils.common.Callback.ProgressCallback<File>() {
+                    @Override
+                    public void onWaiting() {
+
+                    }
+
+                    @Override
+                    public void onStarted() {
+
+                    }
+
+                    @Override
+                    public void onLoading(long total, long current, boolean isDownloading) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(File result) {
+                        Toast.makeText(getApplicationContext(), "文件下载成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+            }
+        });
     }
 
-    class MyDownloader extends FileDownloaderCallback{
-        /**
-         * onPending 等待，已经进入下载队列	数据库中的soFarBytes与totalBytes
-         * connected 已经连接上	ETag, 是否断点续传, soFarBytes, totalBytes
-         * @param downloadId
-         * @param soFarBytes
-         * @param totalBytes
-         * @param preProgress
-         */
-        public void onStart(int downloadId, long soFarBytes, long totalBytes, int preProgress) {
-
-        }
-
-        /**
-         * 下载进度回调	soFarBytes
-         * @param downloadId
-         * @param soFarBytes
-         * @param totalBytes
-         * @param speed
-         * @param progress
-         */
-        public void onProgress(int downloadId, long soFarBytes, long totalBytes, long speed, int progress) {
-
-        }
-
-        /**
-         * 等待
-         * @param downloadId
-         */
-        public void onWait(int downloadId) {
-        }
-
-        /**
-         * paused	暂停下载	soFarBytes
-         * error	下载出现错误	抛出的Throwable
-         * @param downloadId
-         * @param soFarBytes
-         * @param totalBytes
-         * @param progress
-         */
-        public void onStop(int downloadId, long soFarBytes, long totalBytes, int progress) {
-
-        }
-
-        /**
-         * 完成整个下载过程
-         * @param downloadId
-         * @param path
-         */
-        public void onFinish(int downloadId, String path) {
-            Toast.makeText(getApplicationContext(),"下载完毕",Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }

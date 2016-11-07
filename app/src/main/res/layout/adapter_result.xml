@@ -22,22 +22,39 @@
             android:textStyle="bold"
             tools:text="color name" />
 
-        <TextView
-            android:id="@+id/tv_download_url_sq"
-            android:layout_width="match_parent"
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="#000000" />
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="SQ音质"
+            android:id="@+id/btn_download_url_sq"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="HQ音质"
+            android:id="@+id/btn_download_url_hq"
+            />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            android:text="LQ音质"
+            android:id="@+id/btn_download_url_lq"
+            />
 
-        <TextView
-            android:id="@+id/tv_download_url_hq"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="#000000" />
-
-        <TextView
-            android:id="@+id/tv_download_url_lq"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="#000000" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
