@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.salton123.musicdownloader">
+    package="io.github.ryanhoo.music">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MusicPlayerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/mp.app.name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/MP.Theme">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.local.filesystem.FileSystemActivity"
+            android:label="@string/mp.activity.title.file_system"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.details.PlayListDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".player.PlaybackService">
+            <intent-filter>
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_TOGGLE" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_NEXT" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_LAST" />
+                <action android:name="io.github.ryanhoo.music.ACTION.STOP_SERVICE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
