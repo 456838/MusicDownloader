@@ -18,6 +18,7 @@ import io.github.ryanhoo.music.ui.base.BaseFragment;
 import io.github.ryanhoo.music.ui.local.LocalFilesFragment;
 import io.github.ryanhoo.music.ui.music.MusicPlayerFragment;
 import io.github.ryanhoo.music.ui.playlist.PlayListFragment;
+import io.github.ryanhoo.music.ui.recommend.RecommendFragment;
 import io.github.ryanhoo.music.ui.settings.SettingsFragment;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
@@ -57,24 +58,18 @@ public class MainActivity extends BaseActivity {
                 .checkMutiPermission(new PermissionCallback() {
                     @Override
                     public void onClose() {
-
+                        checkPermission();
                     }
 
                     @Override
                     public void onFinish() {
-                        boolean hasReadStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-                        boolean hasWriteStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-                        if (hasReadStorgePermission && hasWriteStorgePermission) {
-                            loadData();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "请授予应用必要的权限以满足您的使用需求", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
+                        checkPermission();
                     }
 
                     @Override
                     public void onDeny(String permission, int position) {
-
+                        Toast.makeText(getApplicationContext(), "请授予应用必要的权限以满足您的使用需求", Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
                     @Override
@@ -84,6 +79,17 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
+    private void checkPermission() {
+        boolean hasReadStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        boolean hasWriteStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (hasReadStorgePermission && hasWriteStorgePermission) {
+            loadData();
+        } else {
+            Toast.makeText(getApplicationContext(), "请授予应用必要的权限以满足您的使用需求", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
     private void loadData() {
 
         // Main Controls' Titles
@@ -91,7 +97,7 @@ public class MainActivity extends BaseActivity {
 
         // Fragments
         BaseFragment[] fragments = new BaseFragment[mTitles.length];
-        fragments[0] = new PlayListFragment();
+        fragments[0] = new RecommendFragment();
         fragments[1] = new MusicPlayerFragment();
         fragments[2] = new LocalFilesFragment();
         fragments[3] = new SettingsFragment();

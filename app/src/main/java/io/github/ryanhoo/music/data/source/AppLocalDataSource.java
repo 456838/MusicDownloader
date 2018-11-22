@@ -2,15 +2,20 @@ package io.github.ryanhoo.music.data.source;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.litesuits.orm.db.model.ConflictAlgorithm;
+
+import org.reactivestreams.Subscriber;
+
 import io.github.ryanhoo.music.data.model.Folder;
 import io.github.ryanhoo.music.data.model.PlayList;
 import io.github.ryanhoo.music.data.model.Song;
 import io.github.ryanhoo.music.utils.DBUtils;
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 import java.io.File;
 import java.util.Date;
@@ -40,9 +45,9 @@ import java.util.List;
 
     @Override
     public Observable<List<PlayList>> playLists() {
-        return Observable.create(new Observable.OnSubscribe<List<PlayList>>() {
+        return Observable.create(new ObservableOnSubscribe<List<PlayList>>() {
             @Override
-            public void call(Subscriber<? super List<PlayList>> subscriber) {
+            public void subscribe(ObservableEmitter<List<PlayList>> subscriber) throws Exception {
                 List<PlayList> playLists = mLiteOrm.query(PlayList.class);
                 if (playLists.isEmpty()) {
                     // First query, create the default play list
@@ -52,7 +57,7 @@ import java.util.List;
                     playLists.add(playList);
                 }
                 subscriber.onNext(playLists);
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
         });
     }
@@ -64,54 +69,57 @@ import java.util.List;
 
     @Override
     public Observable<PlayList> create(final PlayList playList) {
-        return Observable.create(new Observable.OnSubscribe<PlayList>() {
+        return Observable.create(new ObservableOnSubscribe<PlayList>() {
             @Override
-            public void call(Subscriber<? super PlayList> subscriber) {
+            public void subscribe(ObservableEmitter<PlayList> emitter) throws Exception {
                 Date now = new Date();
                 playList.setCreatedAt(now);
                 playList.setUpdatedAt(now);
 
                 long result = mLiteOrm.save(playList);
                 if (result > 0) {
-                    subscriber.onNext(playList);
+                    emitter.onNext(playList);
                 } else {
-                    subscriber.onError(new Exception("Create play list failed"));
+                    emitter.onError(new Exception("Create play list failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
+
+
         });
     }
 
     @Override
     public Observable<PlayList> update(final PlayList playList) {
-        return Observable.create(new Observable.OnSubscribe<PlayList>() {
+        return Observable.create(new ObservableOnSubscribe<PlayList>() {
             @Override
-            public void call(Subscriber<? super PlayList> subscriber) {
+            public void subscribe(ObservableEmitter<PlayList> emitter) throws Exception {
                 playList.setUpdatedAt(new Date());
 
                 long result = mLiteOrm.update(playList);
                 if (result > 0) {
-                    subscriber.onNext(playList);
+                    emitter.onNext(playList);
                 } else {
-                    subscriber.onError(new Exception("Update play list failed"));
+                    emitter.onError(new Exception("Update play list failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
+
         });
     }
 
     @Override
     public Observable<PlayList> delete(final PlayList playList) {
-        return Observable.create(new Observable.OnSubscribe<PlayList>() {
+        return Observable.create(new ObservableOnSubscribe<PlayList>() {
             @Override
-            public void call(Subscriber<? super PlayList> subscriber) {
+            public void subscribe(ObservableEmitter<PlayList> emitter) throws Exception {
                 long result = mLiteOrm.delete(playList);
                 if (result > 0) {
-                    subscriber.onNext(playList);
+                    emitter.onNext(playList);
                 } else {
-                    subscriber.onError(new Exception("Delete play list failed"));
+                    emitter.onError(new Exception("Delete play list failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
@@ -120,9 +128,9 @@ import java.util.List;
 
     @Override
     public Observable<List<Folder>> folders() {
-        return Observable.create(new Observable.OnSubscribe<List<Folder>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Folder>>() {
             @Override
-            public void call(Subscriber<? super List<Folder>> subscriber) {
+            public void subscribe(ObservableEmitter<List<Folder>> emitter) throws Exception {
                 if (PreferenceManager.isFirstQueryFolders(mContext)) {
                     List<Folder> defaultFolders = DBUtils.generateDefaultFolders();
                     long result = mLiteOrm.save(defaultFolders);
@@ -132,35 +140,35 @@ import java.util.List;
                 List<Folder> folders = mLiteOrm.query(
                         QueryBuilder.create(Folder.class).appendOrderAscBy(Folder.COLUMN_NAME)
                 );
-                subscriber.onNext(folders);
-                subscriber.onCompleted();
+                emitter.onNext(folders);
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<Folder> create(final Folder folder) {
-        return Observable.create(new Observable.OnSubscribe<Folder>() {
+        return Observable.create(new ObservableOnSubscribe<Folder>() {
             @Override
-            public void call(Subscriber<? super Folder> subscriber) {
+            public void subscribe(ObservableEmitter<Folder> emitter) throws Exception {
                 folder.setCreatedAt(new Date());
 
                 long result = mLiteOrm.save(folder);
                 if (result > 0) {
-                    subscriber.onNext(folder);
+                    emitter.onNext(folder);
                 } else {
-                    subscriber.onError(new Exception("Create folder failed"));
+                    emitter.onError(new Exception("Create folder failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<List<Folder>> create(final List<Folder> folders) {
-        return Observable.create(new Observable.OnSubscribe<List<Folder>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Folder>>() {
             @Override
-            public void call(Subscriber<? super List<Folder>> subscriber) {
+            public void subscribe(ObservableEmitter<List<Folder>> emitter) throws Exception {
                 Date now = new Date();
                 for (Folder folder : folders) {
                     folder.setCreatedAt(now);
@@ -171,53 +179,53 @@ import java.util.List;
                     List<Folder> allNewFolders = mLiteOrm.query(
                             QueryBuilder.create(Folder.class).appendOrderAscBy(Folder.COLUMN_NAME)
                     );
-                    subscriber.onNext(allNewFolders);
+                    emitter.onNext(allNewFolders);
                 } else {
-                    subscriber.onError(new Exception("Create folders failed"));
+                    emitter.onError(new Exception("Create folders failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<Folder> update(final Folder folder) {
-        return Observable.create(new Observable.OnSubscribe<Folder>() {
+        return Observable.create(new ObservableOnSubscribe<Folder>() {
             @Override
-            public void call(Subscriber<? super Folder> subscriber) {
+            public void subscribe(ObservableEmitter<Folder> emitter) throws Exception {
                 mLiteOrm.delete(folder);
                 long result = mLiteOrm.save(folder);
                 if (result > 0) {
-                    subscriber.onNext(folder);
+                    emitter.onNext(folder);
                 } else {
-                    subscriber.onError(new Exception("Update folder failed"));
+                    emitter.onError(new Exception("Update folder failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<Folder> delete(final Folder folder) {
-        return Observable.create(new Observable.OnSubscribe<Folder>() {
+        return Observable.create(new ObservableOnSubscribe<Folder>() {
             @Override
-            public void call(Subscriber<? super Folder> subscriber) {
+            public void subscribe(ObservableEmitter<Folder> emitter) throws Exception {
                 long result = mLiteOrm.delete(folder);
                 if (result > 0) {
-                    subscriber.onNext(folder);
+                    emitter.onNext(folder);
                 } else {
-                    subscriber.onError(new Exception("Delete folder failed"));
+                    emitter.onError(new Exception("Delete folder failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<List<Song>> insert(final List<Song> songs) {
-        return Observable.create(new Observable.OnSubscribe<List<Song>>() {
+        return Observable.create(new ObservableOnSubscribe<List<Song>>() {
             @Override
-            public void call(Subscriber<? super List<Song>> subscriber) {
+            public void subscribe(ObservableEmitter<List<Song>> emitter) throws Exception {
                 for (Song song : songs) {
                     mLiteOrm.insert(song, ConflictAlgorithm.Abort);
                 }
@@ -232,33 +240,33 @@ import java.util.List;
                         mLiteOrm.delete(song);
                     }
                 }
-                subscriber.onNext(allSongs);
-                subscriber.onCompleted();
+                emitter.onNext(allSongs);
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<Song> update(final Song song) {
-        return Observable.create(new Observable.OnSubscribe<Song>() {
+        return Observable.create(new ObservableOnSubscribe<Song>() {
             @Override
-            public void call(Subscriber<? super Song> subscriber) {
+            public void subscribe(ObservableEmitter<Song> emitter) throws Exception {
                 int result = mLiteOrm.update(song);
                 if (result > 0) {
-                    subscriber.onNext(song);
+                    emitter.onNext(song);
                 } else {
-                    subscriber.onError(new Exception("Update song failed"));
+                    emitter.onError(new Exception("Update song failed"));
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }
 
     @Override
     public Observable<Song> setSongAsFavorite(final Song song, final boolean isFavorite) {
-        return Observable.create(new Observable.OnSubscribe<Song>() {
+        return Observable.create(new ObservableOnSubscribe<Song>() {
             @Override
-            public void call(Subscriber<? super Song> subscriber) {
+            public void subscribe(ObservableEmitter<Song> emitter) throws Exception {
                 List<PlayList> playLists = mLiteOrm.query(
                         QueryBuilder.create(PlayList.class).whereEquals(PlayList.COLUMN_FAVORITE, String.valueOf(true))
                 );
@@ -278,15 +286,15 @@ import java.util.List;
                 mLiteOrm.insert(song, ConflictAlgorithm.Replace);
                 long result = mLiteOrm.insert(favorite, ConflictAlgorithm.Replace);
                 if (result > 0) {
-                    subscriber.onNext(song);
+                    emitter.onNext(song);
                 } else {
                     if (isFavorite) {
-                        subscriber.onError(new Exception("Set song as favorite failed"));
+                        emitter.onError(new Exception("Set song as favorite failed"));
                     } else {
-                        subscriber.onError(new Exception("Set song as unfavorite failed"));
+                        emitter.onError(new Exception("Set song as unfavorite failed"));
                     }
                 }
-                subscriber.onCompleted();
+                emitter.onComplete();
             }
         });
     }

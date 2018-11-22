@@ -1,5 +1,8 @@
 package io.github.ryanhoo.music.ui.local.folder;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import io.github.ryanhoo.music.RxBus;
 import io.github.ryanhoo.music.data.model.Folder;
 import io.github.ryanhoo.music.data.model.PlayList;
@@ -7,14 +10,18 @@ import io.github.ryanhoo.music.data.model.Song;
 import io.github.ryanhoo.music.data.source.AppRepository;
 import io.github.ryanhoo.music.event.PlayListUpdatedEvent;
 import io.github.ryanhoo.music.utils.FileUtils;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.SingleSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 import java.io.File;
 import java.util.Collections;
@@ -32,12 +39,12 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     private FolderContract.View mView;
     private AppRepository mRepository;
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable mSubscriptions;
 
     public FolderPresenter(AppRepository repository, FolderContract.View view) {
         mView = view;
         mRepository = repository;
-        mSubscriptions = new CompositeSubscription();
+        mSubscriptions = new CompositeDisposable();
         mView.setPresenter(this);
     }
 
@@ -54,11 +61,11 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     @Override
     public void loadFolders() {
-        Subscription subscription = mRepository.folders()
+        Disposable subscription = mRepository.folders()
                 .subscribeOn(Schedulers.io())
-                .doOnNext(new Action1<List<Folder>>() {
+                .doOnNext(new Consumer<List<Folder>>() {
                     @Override
-                    public void call(List<Folder> folders) {
+                    public void accept(List<Folder> folders) throws Exception {
                         Collections.sort(folders, new Comparator<Folder>() {
                             @Override
                             public int compare(Folder f1, Folder f2) {
@@ -67,27 +74,28 @@ public class FolderPresenter implements FolderContract.Presenter {
                         });
                     }
                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Folder>>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Folder>>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(List<Folder> folders) {
+                    public void accept(List<Folder> folders) throws Exception {
                         mView.onFoldersLoaded(folders);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -95,81 +103,81 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     @Override
     public void addFolders(List<File> folders, final List<Folder> existedFolders) {
-        Subscription subscription = Observable.from(folders)
-                .filter(new Func1<File, Boolean>() {
-                    @Override
-                    public Boolean call(File file) {
-                        for (Folder folder : existedFolders) {
-                            if (file.getAbsolutePath().equals(folder.getPath())) {
-                                return false;
-                            }
-                        }
-                        return true;
+        Disposable disposable = Observable.fromIterable(folders).filter(new Predicate<File>() {
+            @Override
+            public boolean test(File file) throws Exception {
+                for (Folder folder : existedFolders) {
+                    if (file.getAbsolutePath().equals(folder.getPath())) {
+                        return false;
                     }
-                })
-                .flatMap(new Func1<File, Observable<Folder>>() {
+                }
+                return true;
+            }
+        }).flatMap(new Function<File, ObservableSource<Folder>>() {
+            @Override
+            public ObservableSource<Folder> apply(File file) throws Exception {
+                Folder folder = new Folder();
+                folder.setName(file.getName());
+                folder.setPath(file.getAbsolutePath());
+                List<Song> musicFiles = FileUtils.musicFiles(file);
+                folder.setSongs(musicFiles);
+                folder.setNumOfSongs(musicFiles.size());
+                return Observable.just(folder);
+            }
+        }).toList().flatMapObservable(new Function<List<Folder>, ObservableSource<List<Folder>>>() {
+            @Override
+            public ObservableSource<List<Folder>> apply(List<Folder> folders) throws Exception {
+                return Observable.just(folders);
+            }
+        }).flatMap(new Function<List<Folder>, ObservableSource<List<Folder>>>() {
+            @Override
+            public ObservableSource<List<Folder>> apply(List<Folder> folders) throws Exception {
+                return mRepository.create(folders);
+            }
+        }).doOnNext(new Consumer<List<Folder>>() {
+            @Override
+            public void accept(List<Folder> folders) throws Exception {
+                Collections.sort(folders, new Comparator<Folder>() {
                     @Override
-                    public Observable<Folder> call(File file) {
-                        Folder folder = new Folder();
-                        folder.setName(file.getName());
-                        folder.setPath(file.getAbsolutePath());
-                        List<Song> musicFiles = FileUtils.musicFiles(file);
-                        folder.setSongs(musicFiles);
-                        folder.setNumOfSongs(musicFiles.size());
-                        return Observable.just(folder);
-                    }
-                })
-                .toList()
-                .flatMap(new Func1<List<Folder>, Observable<List<Folder>>>() {
-                    @Override
-                    public Observable<List<Folder>> call(List<Folder> folders) {
-                        return mRepository.create(folders);
-                    }
-                })
-                .doOnNext(new Action1<List<Folder>>() {
-                    @Override
-                    public void call(List<Folder> folders) {
-                        Collections.sort(folders, new Comparator<Folder>() {
-                            @Override
-                            public int compare(Folder f1, Folder f2) {
-                                return f1.getName().compareToIgnoreCase(f2.getName());
-                            }
-                        });
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Folder>>() {
-                    @Override
-                    public void onStart() {
-                        mView.showLoading();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(List<Folder> allNewFolders) {
-                        mView.onFoldersAdded(allNewFolders);
+                    public int compare(Folder f1, Folder f2) {
+                        return f1.getName().compareToIgnoreCase(f2.getName());
                     }
                 });
-        mSubscriptions.add(subscription);
+            }
+        }).doOnSubscribe(new Consumer<Disposable>() {
+            @Override
+            public void accept(Disposable disposable) throws Exception {
+                mView.showLoading();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Folder>>() {
+                    @Override
+                    public void accept(List<Folder> folders) throws Exception {
+                        mView.onFoldersAdded(folders);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
+                    }
+                });
+
+        mSubscriptions.add(disposable);
     }
 
     @Override
     public void refreshFolder(final Folder folder) {
-        Subscription subscription = Observable.just(FileUtils.musicFiles(new File(folder.getPath())))
-                .flatMap(new Func1<List<Song>, Observable<Folder>>() {
+        Disposable subscription = Observable.just(FileUtils.musicFiles(new File(folder.getPath())))
+                .flatMap(new Function<List<Song>, ObservableSource<Folder>>() {
                     @Override
-                    public Observable<Folder> call(List<Song> songs) {
+                    public ObservableSource<Folder> apply(List<Song> songs) throws Exception {
                         folder.setSongs(songs);
                         folder.setNumOfSongs(songs.size());
                         return mRepository.update(folder);
@@ -177,26 +185,27 @@ public class FolderPresenter implements FolderContract.Presenter {
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Folder>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<Folder>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(Folder folder) {
+                    public void accept(Folder folder) throws Exception {
                         mView.onFolderUpdated(folder);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -204,29 +213,30 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     @Override
     public void deleteFolder(Folder folder) {
-        Subscription subscription = mRepository.delete(folder)
+        Disposable subscription = mRepository.delete(folder)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Folder>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<Folder>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(Folder folder) {
+                    public void accept(Folder folder) throws Exception {
                         mView.onFolderDeleted(folder);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -234,30 +244,31 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     @Override
     public void createPlayList(PlayList playList) {
-        Subscription subscription = mRepository
+        Disposable subscription = mRepository
                 .create(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PlayList>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<PlayList>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(PlayList playList) {
+                    public void accept(PlayList playList) throws Exception {
                         mView.onPlayListCreated(playList);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -265,7 +276,9 @@ public class FolderPresenter implements FolderContract.Presenter {
 
     @Override
     public void addFolderToPlayList(final Folder folder, PlayList playList) {
-        if (folder.getSongs().isEmpty()) return;
+        if (folder.getSongs().isEmpty()) {
+            return;
+        }
 
         if (playList.isFavorite()) {
             for (Song song : folder.getSongs()) {
@@ -273,29 +286,30 @@ public class FolderPresenter implements FolderContract.Presenter {
             }
         }
         playList.addSong(folder.getSongs(), 0);
-        Subscription subscription = mRepository.update(playList)
+        Disposable subscription = mRepository.update(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PlayList>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<PlayList>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(PlayList playList) {
+                    public void accept(PlayList playList) throws Exception {
                         RxBus.getInstance().post(new PlayListUpdatedEvent(playList));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);

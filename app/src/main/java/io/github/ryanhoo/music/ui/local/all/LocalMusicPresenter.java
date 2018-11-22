@@ -8,17 +8,22 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import io.github.ryanhoo.music.data.model.Song;
 import io.github.ryanhoo.music.data.source.AppRepository;
 import io.github.ryanhoo.music.utils.FileUtils;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,12 +63,12 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
 
     private LocalMusicContract.View mView;
     private AppRepository mRepository;
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable mSubscriptions;
 
     public LocalMusicPresenter(AppRepository repository, LocalMusicContract.View view) {
         mView = view;
         mRepository = repository;
-        mSubscriptions = new CompositeSubscription();
+        mSubscriptions = new CompositeDisposable();
         mView.setPresenter(this);
     }
 
@@ -86,7 +91,9 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (id != URL_LOAD_LOCAL_MUSIC) return null;
+        if (id != URL_LOAD_LOCAL_MUSIC) {
+            return null;
+        }
 
         return new CursorLoader(
                 mView.getContext(),
@@ -100,10 +107,10 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Subscription subscription = Observable.just(cursor)
-                .flatMap(new Func1<Cursor, Observable<List<Song>>>() {
+        Disposable subscription = Observable.just(cursor)
+                .flatMap(new Function<Cursor, ObservableSource<List<Song>>>() {
                     @Override
-                    public Observable<List<Song>> call(Cursor cursor) {
+                    public ObservableSource<List<Song>> apply(Cursor cursor) throws Exception {
                         List<Song> songs = new ArrayList<>();
                         if (cursor != null && cursor.getCount() > 0) {
                             cursor.moveToFirst();
@@ -115,9 +122,9 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
                         return mRepository.insert(songs);
                     }
                 })
-                .doOnNext(new Action1<List<Song>>() {
+                .doOnNext(new Consumer<List<Song>>() {
                     @Override
-                    public void call(List<Song> songs) {
+                    public void accept(List<Song> songs) throws Exception {
                         Log.d(TAG, "onLoadFinished: " + songs.size());
                         Collections.sort(songs, new Comparator<Song>() {
                             @Override
@@ -125,32 +132,32 @@ public class LocalMusicPresenter implements LocalMusicContract.Presenter, Loader
                                 return left.getDisplayName().compareTo(right.getDisplayName());
                             }
                         });
-
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Song>>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showProgress();
                     }
-
+                })
+                .subscribe(new Consumer<List<Song>>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideProgress();
+                    public void accept(List<Song> songs) throws Exception {
+                        mView.onLocalMusicLoaded(songs);
+                        mView.emptyView(songs.isEmpty());
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable throwable) {
+                    public void accept(Throwable throwable) throws Exception {
                         mView.hideProgress();
                         Log.e(TAG, "onError: ", throwable);
                     }
-
+                }, new Action() {
                     @Override
-                    public void onNext(List<Song> songs) {
-                        mView.onLocalMusicLoaded(songs);
-                        mView.emptyView(songs.isEmpty());
+                    public void run() throws Exception {
+                        mView.hideProgress();
                     }
                 });
         mSubscriptions.add(subscription);

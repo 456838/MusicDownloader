@@ -1,9 +1,14 @@
 package io.github.ryanhoo.music;
 
 import android.util.Log;
-import rx.Observable;
-import rx.Subscriber;
-import rx.subjects.PublishSubject;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Cancellable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+
 
 /**
  * Created with Android Studio.
@@ -55,24 +60,16 @@ public class RxBus {
         return mEventBus;
     }
 
+
     /**
      * A simple logger for RxBus which can also prevent
      * potential crash(OnErrorNotImplementedException) caused by error in the workflow.
      */
-    public static Subscriber<Object> defaultSubscriber() {
-        return new Subscriber<Object>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "Duty off!!!");
-            }
+    public static Consumer defaultSubscriber() {
+        return new Consumer<Object>() {
 
             @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "What is this? Please solve this as soon as possible!", e);
-            }
-
-            @Override
-            public void onNext(Object o) {
+            public void accept(Object o) throws Exception {
                 Log.d(TAG, "New event received: " + o);
             }
         };

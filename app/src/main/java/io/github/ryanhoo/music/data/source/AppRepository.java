@@ -5,8 +5,8 @@ import io.github.ryanhoo.music.data.model.Folder;
 import io.github.ryanhoo.music.data.model.PlayList;
 import io.github.ryanhoo.music.data.model.Song;
 import io.github.ryanhoo.music.data.source.db.LiteOrmHelper;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +46,9 @@ public class AppRepository implements AppContract {
     @Override
     public Observable<List<PlayList>> playLists() {
         return mLocalDataSource.playLists()
-                .doOnNext(new Action1<List<PlayList>>() {
+                .doOnNext(new Consumer<List<PlayList>>() {
                     @Override
-                    public void call(List<PlayList> playLists) {
+                    public void accept(List<PlayList> playLists) throws Exception {
                         mCachedPlayLists = playLists;
                     }
                 });

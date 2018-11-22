@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import org.reactivestreams.Subscription;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.music.R;
@@ -20,9 +23,9 @@ import io.github.ryanhoo.music.ui.base.BaseFragment;
 import io.github.ryanhoo.music.ui.base.adapter.OnItemClickListener;
 import io.github.ryanhoo.music.ui.common.DefaultDividerDecoration;
 import io.github.ryanhoo.music.ui.widget.RecyclerViewFastScroller;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 import java.util.List;
 
@@ -77,12 +80,12 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
     // RxBus Events
 
     @Override
-    protected Subscription subscribeEvents() {
+    protected Disposable subscribeEvents() {
         return RxBus.getInstance().toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Action1<Object>() {
+                .doOnNext(new Consumer<Object>() {
                     @Override
-                    public void call(Object o) {
+                    public void accept(Object o) throws Exception {
                         if (o instanceof PlayListUpdatedEvent) {
                             mPresenter.loadLocalMusic();
                         }

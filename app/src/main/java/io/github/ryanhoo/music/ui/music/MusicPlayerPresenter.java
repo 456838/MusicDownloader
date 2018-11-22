@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+
+import org.reactivestreams.Subscriber;
+
 import io.github.ryanhoo.music.RxBus;
 import io.github.ryanhoo.music.data.model.Song;
 import io.github.ryanhoo.music.data.source.AppRepository;
@@ -12,11 +15,13 @@ import io.github.ryanhoo.music.data.source.PreferenceManager;
 import io.github.ryanhoo.music.event.FavoriteChangeEvent;
 import io.github.ryanhoo.music.player.PlayMode;
 import io.github.ryanhoo.music.player.PlaybackService;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created with Android Studio.
@@ -30,7 +35,7 @@ public class MusicPlayerPresenter implements MusicPlayerContract.Presenter {
     private Context mContext;
     private MusicPlayerContract.View mView;
     private AppRepository mRepository;
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable mSubscriptions;
 
     private PlaybackService mPlaybackService;
     private boolean mIsServiceBound;
@@ -61,7 +66,7 @@ public class MusicPlayerPresenter implements MusicPlayerContract.Presenter {
         mContext = context;
         mView = view;
         mRepository = repository;
-        mSubscriptions = new CompositeSubscription();
+        mSubscriptions = new CompositeDisposable();
         mView.setPresenter(this);
     }
 
@@ -96,24 +101,24 @@ public class MusicPlayerPresenter implements MusicPlayerContract.Presenter {
 
     @Override
     public void setSongAsFavorite(Song song, boolean favorite) {
-        Subscription subscription = mRepository.setSongAsFavorite(song, favorite)
+        Disposable subscription = mRepository.setSongAsFavorite(song, favorite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Song>() {
+                .subscribe(new Consumer<Song>() {
                     @Override
-                    public void onCompleted() {
-                        // Empty
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(Song song) {
+                    public void accept(Song song) throws Exception {
                         mView.onSongSetAsFavorite(song);
                         RxBus.getInstance().post(new FavoriteChangeEvent(song));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
                     }
                 });
         mSubscriptions.add(subscription);

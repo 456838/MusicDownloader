@@ -12,10 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.Window;
+
+import org.reactivestreams.Subscription;
+
 import io.github.ryanhoo.music.R;
 import io.github.ryanhoo.music.utils.GradientUtils;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -27,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable mSubscriptions;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -95,15 +98,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         return actionBar;
     }
 
-    protected void addSubscription(Subscription subscription) {
-        if (subscription == null) return;
+    protected void addSubscription(Disposable subscription) {
+        if (subscription == null) {
+            return;
+        }
         if (mSubscriptions == null) {
-            mSubscriptions = new CompositeSubscription();
+            mSubscriptions = new CompositeDisposable();
         }
         mSubscriptions.add(subscription);
     }
 
-    protected Subscription subscribeEvents() {
+    protected Disposable subscribeEvents() {
         return null;
     }
 }

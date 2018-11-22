@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
@@ -15,6 +16,7 @@ import io.github.ryanhoo.music.R;
 import io.github.ryanhoo.music.ui.base.BaseFragment;
 import io.github.ryanhoo.music.ui.local.all.AllLocalMusicFragment;
 import io.github.ryanhoo.music.ui.local.folder.FolderFragment;
+import io.github.ryanhoo.music.ui.playlist.PlayListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +34,13 @@ public class LocalFilesFragment extends BaseFragment {
 
     static final int DEFAULT_SEGMENT_INDEX = 0;
 
-    @BindViews({R.id.radio_button_all, R.id.radio_button_folder})
+    @BindViews({R.id.radio_button_all, R.id.radio_button_folder, R.id.radio_button_collection})
     List<RadioButton> segmentedControls;
 
-    List<Fragment> mFragments = new ArrayList<>(2);
+    List<Fragment> mFragments = new ArrayList<>(3);
 
     final int[] FRAGMENT_CONTAINER_IDS = {
-            R.id.layout_fragment_container_all, R.id.layout_fragment_container_folder
+            R.id.layout_fragment_container_all, R.id.layout_fragment_container_folder, R.id.layout_fragment_container_collection
     };
 
     @Override
@@ -46,6 +48,7 @@ public class LocalFilesFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mFragments.add(new AllLocalMusicFragment());
         mFragments.add(new FolderFragment());
+        mFragments.add(new PlayListFragment());
     }
 
     @Nullable
@@ -70,7 +73,7 @@ public class LocalFilesFragment extends BaseFragment {
         segmentedControls.get(DEFAULT_SEGMENT_INDEX).setChecked(true);
     }
 
-    @OnCheckedChanged({R.id.radio_button_all, R.id.radio_button_folder})
+    @OnCheckedChanged({R.id.radio_button_all, R.id.radio_button_folder, R.id.radio_button_collection})
     public void onSegmentedChecked(RadioButton radioButton, boolean isChecked) {
         int index = segmentedControls.indexOf(radioButton);
         Fragment fragment = mFragments.get(index);

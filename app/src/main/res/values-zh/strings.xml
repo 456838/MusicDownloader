@@ -51,6 +51,7 @@
     <!-- Local Files -->
     <string name="mp.local_files.segmented.all">所有歌曲</string>
     <string name="mp.local_files.segmented.folder">文件夹</string>
+    <string name="mp.local_files.segmented.collection">收藏</string>
 
     <string name="mp.local_files.music_list.empty">设备上没有找到音乐</string>
     <string name="mp.local_files.music_list.end_summary_formatter">总共有 %d 首歌</string>

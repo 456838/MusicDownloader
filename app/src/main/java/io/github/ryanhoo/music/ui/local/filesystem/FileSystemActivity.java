@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.music.R;
@@ -18,12 +22,13 @@ import io.github.ryanhoo.music.ui.base.BaseActivity;
 import io.github.ryanhoo.music.ui.base.adapter.OnItemClickListener;
 import io.github.ryanhoo.music.ui.base.adapter.OnItemLongClickListener;
 import io.github.ryanhoo.music.ui.common.DefaultDividerDecoration;
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import java.io.File;
 import java.util.*;
@@ -166,10 +171,10 @@ public class FileSystemActivity extends BaseActivity {
     // Load files
 
     private void loadFiles(final File parent) {
-        Subscription subscription = Observable.just(parent)
-                .flatMap(new Func1<File, Observable<List<FileWrapper>>>() {
+        Disposable subscription = io.reactivex.Observable.just(parent)
+                .flatMap(new Function<File, ObservableSource<List<FileWrapper>>>() {
                     @Override
-                    public Observable<List<FileWrapper>> call(File parent) {
+                    public ObservableSource<List<FileWrapper>> apply(File temp) throws Exception {
                         List<File> files = Arrays.asList(parent.listFiles(SystemFileFilter.DEFAULT_INSTANCE));
                         Collections.sort(files, new Comparator<File>() {
                             @Override
@@ -188,25 +193,25 @@ public class FileSystemActivity extends BaseActivity {
                         for (File file : files) {
                             fileWrappers.add(new FileWrapper(file));
                         }
-                        return Observable.just(fileWrappers);
+                        return io.reactivex.Observable.just(fileWrappers);
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<FileWrapper>>() {
+                .subscribe(new Consumer<List<FileWrapper>>() {
                     @Override
-                    public void onCompleted() {
-                        toggleEmptyViewVisibility();
+                    public void accept(List<FileWrapper> fileWrappers) throws Exception {
+                        onFilesLoaded(parent, fileWrappers);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable throwable) {
+                    public void accept(Throwable throwable) throws Exception {
                         Log.e(TAG, "onError: ", throwable);
                     }
-
+                }, new Action() {
                     @Override
-                    public void onNext(List<FileWrapper> files) {
-                        onFilesLoaded(parent, files);
+                    public void run() throws Exception {
+                        toggleEmptyViewVisibility();
                     }
                 });
         addSubscription(subscription);

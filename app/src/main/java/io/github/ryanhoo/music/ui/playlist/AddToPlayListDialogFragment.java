@@ -17,7 +17,7 @@ import io.github.ryanhoo.music.ui.base.BaseDialogFragment;
 import io.github.ryanhoo.music.ui.base.adapter.ListAdapter;
 import io.github.ryanhoo.music.ui.base.adapter.OnItemClickListener;
 import io.github.ryanhoo.music.ui.common.DefaultDividerDecoration;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class AddToPlayListDialogFragment extends BaseDialogFragment implements O
 
     RecyclerView recyclerView;
 
-    CompositeSubscription mSubscriptions = new CompositeSubscription();
+    CompositeDisposable mSubscriptions = new CompositeDisposable();
 
     AddPlayListAdapter mAdapter;
     Callback mCallback;

@@ -1,14 +1,15 @@
 package io.github.ryanhoo.music.ui.playlist;
 
+import java.util.List;
+
 import io.github.ryanhoo.music.data.model.PlayList;
 import io.github.ryanhoo.music.data.source.AppRepository;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
-
-import java.util.List;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created with Android Studio.
@@ -21,12 +22,12 @@ public class PlayListPresenter implements PlayListContract.Presenter {
 
     private PlayListContract.View mView;
     private AppRepository mRepository;
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable mSubscriptions;
 
     public PlayListPresenter(AppRepository repository, PlayListContract.View view) {
         mView = view;
         mRepository = repository;
-        mSubscriptions = new CompositeSubscription();
+        mSubscriptions = new CompositeDisposable();
         mView.setPresenter(this);
     }
 
@@ -43,29 +44,30 @@ public class PlayListPresenter implements PlayListContract.Presenter {
 
     @Override
     public void loadPlayLists() {
-        Subscription subscription = mRepository.playLists()
+        Disposable subscription = mRepository.playLists()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<PlayList>>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<List<PlayList>>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(List<PlayList> playLists) {
+                    public void accept(List<PlayList> playLists) throws Exception {
                         mView.onPlayListsLoaded(playLists);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -73,30 +75,31 @@ public class PlayListPresenter implements PlayListContract.Presenter {
 
     @Override
     public void createPlayList(PlayList playList) {
-        Subscription subscription = mRepository
+        Disposable subscription = mRepository
                 .create(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PlayList>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<PlayList>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
+                    public void accept(PlayList playList) throws Exception {
+                        mView.onPlayListCreated(playList);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
+                    public void accept(Throwable throwable) throws Exception {
                         mView.hideLoading();
-                        mView.handleError(e);
+                                mView.handleError(throwable);
                     }
-
+                }, new Action() {
                     @Override
-                    public void onNext(PlayList result) {
-                        mView.onPlayListCreated(result);
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);
@@ -104,60 +107,63 @@ public class PlayListPresenter implements PlayListContract.Presenter {
 
     @Override
     public void editPlayList(PlayList playList) {
-        Subscription subscription = mRepository
+        Disposable subscription = mRepository
                 .update(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PlayList>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<PlayList>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
+                    public void accept(PlayList playList) throws Exception {
+                        mView.onPlayListEdited(playList);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
+                    public void accept(Throwable throwable) throws Exception {
                         mView.hideLoading();
-                        mView.handleError(e);
+                        mView.handleError(throwable);
                     }
-
+                }, new Action() {
                     @Override
-                    public void onNext(PlayList result) {
-                        mView.onPlayListEdited(result);
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
+
         mSubscriptions.add(subscription);
     }
 
     @Override
     public void deletePlayList(PlayList playList) {
-        Subscription subscription = mRepository.delete(playList)
+        Disposable subscription = mRepository.delete(playList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PlayList>() {
+                .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void onStart() {
+                    public void accept(Disposable disposable) throws Exception {
                         mView.showLoading();
                     }
-
+                })
+                .subscribe(new Consumer<PlayList>() {
                     @Override
-                    public void onCompleted() {
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.handleError(e);
-                    }
-
-                    @Override
-                    public void onNext(PlayList playList) {
+                    public void accept(PlayList playList) throws Exception {
                         mView.onPlayListDeleted(playList);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.handleError(throwable);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        mView.hideLoading();
                     }
                 });
         mSubscriptions.add(subscription);

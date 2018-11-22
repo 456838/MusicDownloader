@@ -8,12 +8,12 @@
 
     <RadioGroup
         android:id="@+id/radio_group_segmented_control"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/mp.padding.normal"
         android:layout_marginBottom="@dimen/mp.padding.large"
+        android:orientation="horizontal"
         >
 
         <RadioButton
@@ -28,6 +28,11 @@
             style="@style/MP.Theme.Widget.SegmentedControl.Right"
             android:text="@string/mp.local_files.segmented.folder"
             />
+
+        <RadioButton
+            android:id="@+id/radio_button_collection"
+            style="@style/MP.Theme.Widget.SegmentedControl.Right"
+            android:text="@string/mp.local_files.segmented.collection" />
     </RadioGroup>
 
     <View
@@ -42,8 +47,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/divider"
         />
+
     <FrameLayout
         android:id="@+id/layout_fragment_container_folder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/divider"
+        />
+
+    <FrameLayout
+        android:id="@+id/layout_fragment_container_collection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/divider"

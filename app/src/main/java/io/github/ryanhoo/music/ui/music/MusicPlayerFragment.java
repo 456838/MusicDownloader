@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,9 +32,9 @@ import io.github.ryanhoo.music.ui.base.BaseFragment;
 import io.github.ryanhoo.music.ui.widget.ShadowImageView;
 import io.github.ryanhoo.music.utils.AlbumUtils;
 import io.github.ryanhoo.music.utils.TimeUtils;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created with Android Studio.
@@ -79,7 +80,9 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     private Runnable mProgressCallback = new Runnable() {
         @Override
         public void run() {
-            if (isDetached()) return;
+            if (isDetached()) {
+                return;
+            }
 
             if (mPlayer.isPlaying()) {
                 int progress = (int) (seekBarProgress.getMax()
@@ -107,6 +110,7 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
 
         seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -159,7 +163,9 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
 
     @OnClick(R.id.button_play_toggle)
     public void onPlayToggleAction(View view) {
-        if (mPlayer == null) return;
+        if (mPlayer == null) {
+            return;
+        }
 
         if (mPlayer.isPlaying()) {
             mPlayer.pause();
@@ -170,7 +176,9 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
 
     @OnClick(R.id.button_play_mode_toggle)
     public void onPlayModeToggleAction(View view) {
-        if (mPlayer == null) return;
+        if (mPlayer == null) {
+            return;
+        }
 
         PlayMode current = PreferenceManager.lastPlayMode(getActivity());
         PlayMode newMode = PlayMode.switchNextMode(current);
@@ -181,21 +189,27 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
 
     @OnClick(R.id.button_play_last)
     public void onPlayLastAction(View view) {
-        if (mPlayer == null) return;
+        if (mPlayer == null) {
+            return;
+        }
 
         mPlayer.playLast();
     }
 
     @OnClick(R.id.button_play_next)
     public void onPlayNextAction(View view) {
-        if (mPlayer == null) return;
+        if (mPlayer == null) {
+            return;
+        }
 
         mPlayer.playNext();
     }
 
     @OnClick(R.id.button_favorite_toggle)
     public void onFavoriteToggleAction(View view) {
-        if (mPlayer == null) return;
+        if (mPlayer == null) {
+            return;
+        }
 
         Song currentSong = mPlayer.getPlayingSong();
         if (currentSong != null) {
@@ -207,20 +221,20 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     // RXBus Events
 
     @Override
-    protected Subscription subscribeEvents() {
+    protected Disposable subscribeEvents() {
         return RxBus.getInstance().toObservable()
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Action1<Object>() {
+                .doOnNext(new Consumer<Object>() {
                     @Override
-                    public void call(Object o) {
+                    public void accept(Object o) throws Exception {
                         if (o instanceof PlaySongEvent) {
                             onPlaySongEvent((PlaySongEvent) o);
                         } else if (o instanceof PlayListNowEvent) {
                             onPlayListNowEvent((PlayListNowEvent) o);
                         }
                     }
-                })
-                .subscribe(RxBus.defaultSubscriber());
+                }).subscribe(RxBus.defaultSubscriber());
+
     }
 
     private void onPlaySongEvent(PlaySongEvent event) {
@@ -242,7 +256,9 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
     }
 
     private void playSong(PlayList playList, int playIndex) {
-        if (playList == null) return;
+        if (playList == null) {
+            return;
+        }
 
         playList.setPlayMode(PreferenceManager.lastPlayMode(getActivity()));
         // boolean result =
