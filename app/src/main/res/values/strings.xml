@@ -83,4 +83,8 @@
     <string name="mp.menu.play_now">Play now</string>
     <string name="mp.menu.rename">Rename</string>
     <string name="mp.menu.delete">Delete</string>
+
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="no_network_view_hint">网络异常</string>
 </resources>

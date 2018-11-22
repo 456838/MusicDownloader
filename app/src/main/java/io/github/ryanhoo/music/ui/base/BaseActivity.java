@@ -7,13 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.Window;
 
-import org.reactivestreams.Subscription;
+import com.salton123.base.BaseSupportActivity;
 
 import io.github.ryanhoo.music.R;
 import io.github.ryanhoo.music.utils.GradientUtils;
@@ -28,7 +27,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  * Time: 8:12 PM
  * Desc: BaseActivity
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends BaseSupportActivity {
 
     private CompositeDisposable mSubscriptions;
 

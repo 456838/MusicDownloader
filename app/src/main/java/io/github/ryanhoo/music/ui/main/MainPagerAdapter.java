@@ -15,9 +15,9 @@ import io.github.ryanhoo.music.ui.base.BaseFragment;
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private String[] mTitles;
-    private BaseFragment[] mFragments;
+    private Fragment[] mFragments;
 
-    public MainPagerAdapter(FragmentManager fm, String[] titles, BaseFragment[] fragments) {
+    public MainPagerAdapter(FragmentManager fm, String[] titles, Fragment[] fragments) {
         super(fm);
         mTitles = titles;
         mFragments = fragments;

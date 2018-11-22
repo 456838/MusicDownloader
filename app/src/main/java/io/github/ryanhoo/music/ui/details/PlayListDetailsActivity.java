@@ -58,8 +58,14 @@ public class PlayListDetailsActivity extends BaseActivity implements PlayListDet
     PlayListDetailsContract.Presenter mPresenter;
     int mDeleteIndex;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public int getLayout() {
+        return R.layout.activity_play_list_details;
+    }
+
+    @Override
+    public void initVariable(Bundle bundle) {
         Folder folder = getIntent().getParcelableExtra(EXTRA_FOLDER);
         mPlayList = getIntent().getParcelableExtra(EXTRA_PLAY_LIST);
         if (folder == null && mPlayList == null) {
@@ -70,8 +76,11 @@ public class PlayListDetailsActivity extends BaseActivity implements PlayListDet
             isFolder = true;
             mPlayList = PlayList.fromFolder(folder);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_list_details);
+
+    }
+
+    @Override
+    public void initViewAndData() {
         ButterKnife.bind(this);
         supportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -92,7 +101,6 @@ public class PlayListDetailsActivity extends BaseActivity implements PlayListDet
 
         new PlayListDetailsPresenter(AppRepository.getInstance(), this).subscribe();
     }
-
     @Override
     protected void onDestroy() {
         mPresenter.unsubscribe();

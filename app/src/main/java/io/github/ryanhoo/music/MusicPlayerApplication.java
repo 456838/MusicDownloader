@@ -1,6 +1,7 @@
 package io.github.ryanhoo.music;
 
-import android.app.Application;
+import com.salton123.base.ApplicationBase;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -10,16 +11,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Time: 9:32 PM
  * Desc: MusicPlayerApplication
  */
-public class MusicPlayerApplication extends Application {
-
-    private static MusicPlayerApplication sInstance;
+public class MusicPlayerApplication extends ApplicationBase {
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        sInstance = this;
-
         // Custom fonts
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
@@ -27,10 +23,6 @@ public class MusicPlayerApplication extends Application {
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );
-
     }
 
-    public static MusicPlayerApplication getInstance() {
-        return sInstance;
-    }
 }

@@ -42,7 +42,6 @@ allprojects {
             force "com.android.support:support-core-utils:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support:support-fragment:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support.constraint:constraint-layout:1.0.2"
-            force "com.salton123:xlog:0.0.0.4"
         }
     }
 }

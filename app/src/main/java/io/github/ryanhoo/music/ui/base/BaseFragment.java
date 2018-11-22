@@ -3,8 +3,9 @@ package io.github.ryanhoo.music.ui.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import com.salton123.base.BaseSupportFragment;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -16,7 +17,7 @@ import io.reactivex.disposables.Disposable;
  * Time: 12:14 AM
  * Desc: BaseFragment
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends BaseSupportFragment {
 
     private CompositeDisposable mSubscriptions;
 

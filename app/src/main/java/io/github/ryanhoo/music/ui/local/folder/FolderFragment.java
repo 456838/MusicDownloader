@@ -53,17 +53,20 @@ public class FolderFragment extends BaseFragment implements FolderContract.View,
 
     FolderContract.Presenter mPresenter;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_added_folders, container, false);
+    public int getLayout() {
+        return R.layout.fragment_added_folders;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    public void initVariable(Bundle bundle) {
 
+    }
+
+    @Override
+    public void initViewAndData() {
+        ButterKnife.bind(this, getRootView());
         mAdapter = new FolderAdapter(getActivity(), null);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -78,6 +81,7 @@ public class FolderFragment extends BaseFragment implements FolderContract.View,
 
         new FolderPresenter(AppRepository.getInstance(), this).subscribe();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -228,4 +232,5 @@ public class FolderFragment extends BaseFragment implements FolderContract.View,
     public void setPresenter(FolderContract.Presenter presenter) {
         mPresenter = presenter;
     }
+
 }

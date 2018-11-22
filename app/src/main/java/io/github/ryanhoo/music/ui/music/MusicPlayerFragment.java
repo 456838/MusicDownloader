@@ -100,18 +100,20 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
         }
     };
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_music, container, false);
+    public int getLayout() {
+        return R.layout.fragment_music;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    public void initVariable(Bundle bundle) {
 
+    }
 
+    @Override
+    public void initViewAndData() {
+        ButterKnife.bind(this, getRootView());
         seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -137,6 +139,7 @@ public class MusicPlayerFragment extends BaseFragment implements MusicPlayerCont
 
         new MusicPlayerPresenter(getActivity(), AppRepository.getInstance(), this).subscribe();
     }
+
 
     @Override
     public void onStart() {

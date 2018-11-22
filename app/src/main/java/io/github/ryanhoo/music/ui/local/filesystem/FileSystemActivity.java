@@ -63,10 +63,19 @@ public class FileSystemActivity extends BaseActivity {
 
     ActionModeCallback mActionModeCallback;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_file_system);
+    public int getLayout() {
+        return R.layout.activity_file_system;
+    }
+
+    @Override
+    public void initVariable(Bundle bundle) {
+
+    }
+
+    @Override
+    public void initViewAndData() {
         ButterKnife.bind(this);
         supportActionBar(toolbar);
 
@@ -126,9 +135,9 @@ public class FileSystemActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Handle stack back events
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
         if (mFileTreeStack.size() == 0) {
             super.onBackPressed();
         } else {

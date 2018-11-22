@@ -43,24 +43,20 @@ public class LocalFilesFragment extends BaseFragment {
             R.id.layout_fragment_container_all, R.id.layout_fragment_container_folder, R.id.layout_fragment_container_collection
     };
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mFragments.add(new AllLocalMusicFragment());
-        mFragments.add(new FolderFragment());
-        mFragments.add(new PlayListFragment());
-    }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_local_files, container, false);
+    public int getLayout() {
+        return R.layout.fragment_local_files;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    public void initVariable(Bundle bundle) {
+
+    }
+
+    @Override
+    public void initViewAndData() {
+        ButterKnife.bind(this, getRootView());
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         for (int i = 0; i < mFragments.size(); i++) {
@@ -72,6 +68,15 @@ public class LocalFilesFragment extends BaseFragment {
 
         segmentedControls.get(DEFAULT_SEGMENT_INDEX).setChecked(true);
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mFragments.add(new AllLocalMusicFragment());
+        mFragments.add(new FolderFragment());
+        mFragments.add(new PlayListFragment());
+    }
+
 
     @OnCheckedChanged({R.id.radio_button_all, R.id.radio_button_folder, R.id.radio_button_collection})
     public void onSegmentedChecked(RadioButton radioButton, boolean isChecked) {

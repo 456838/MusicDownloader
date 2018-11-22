@@ -50,16 +50,19 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
     LocalMusicAdapter mAdapter;
     LocalMusicContract.Presenter mPresenter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_all_local_music, container, false);
+    public int getLayout() {
+        return R.layout.fragment_all_local_music;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    public void initVariable(Bundle bundle) {
+
+    }
+
+    @Override
+    public void initViewAndData() {
+        ButterKnife.bind(this, getRootView());
 
         mAdapter = new LocalMusicAdapter(getActivity(), null);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -76,7 +79,7 @@ public class AllLocalMusicFragment extends BaseFragment implements LocalMusicCon
 
         new LocalMusicPresenter(AppRepository.getInstance(), this).subscribe();
     }
-
+    
     // RxBus Events
 
     @Override

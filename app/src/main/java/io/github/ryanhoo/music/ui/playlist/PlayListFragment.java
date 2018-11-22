@@ -48,16 +48,20 @@ public class PlayListFragment extends BaseFragment implements PlayListContract.V
 
     PlayListContract.Presenter mPresenter;
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_play_list, container, false);
+    public int getLayout() {
+        return R.layout.fragment_play_list;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    public void initVariable(Bundle bundle) {
+
+    }
+
+    @Override
+    public void initViewAndData() {
+        ButterKnife.bind(this, getRootView());
 
         mAdapter = new PlayListAdapter(getActivity(), null);
         mAdapter.setOnItemClickListener(new OnItemClickListener() {

@@ -2,6 +2,7 @@ package io.github.ryanhoo.music.ui.main;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
@@ -44,10 +45,19 @@ public class MainActivity extends BaseActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initVariable(Bundle bundle) {
+
+    }
+
+    @Override
+    public void initViewAndData() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         List<PermissionItem> permissionItems = new ArrayList<>();
@@ -96,7 +106,7 @@ public class MainActivity extends BaseActivity {
         mTitles = getResources().getStringArray(R.array.mp_main_titles);
 
         // Fragments
-        BaseFragment[] fragments = new BaseFragment[mTitles.length];
+        Fragment[] fragments = new Fragment[mTitles.length];
         fragments[0] = new RecommendFragment();
         fragments[1] = new MusicPlayerFragment();
         fragments[2] = new LocalFilesFragment();
@@ -128,7 +138,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
         moveTaskToBack(true);
     }
 
@@ -143,4 +154,5 @@ public class MainActivity extends BaseActivity {
         viewPager.setCurrentItem(position);
         toolbar.setTitle(mTitles[position]);
     }
+
 }

@@ -32,12 +32,12 @@
         <item name="textAppearanceSmallPopupMenu">@style/MP.Theme.TextAppearance.SmallPopupMenu</item>
     </style>
 
-    <style name="MP.Theme" parent="AppTheme"/>
+    <style name="MP.Theme" parent="AppTheme" />
 
 
     <!-- Widget -->
 
-    <style name="MP.Theme.Widget"/>
+    <style name="MP.Theme.Widget" />
 
     <!-- Widget - Divider -->
 
@@ -190,5 +190,16 @@
 
     <style name="MP.Theme.TextAppearance.SmallPopupMenu" parent="TextAppearance.AppCompat.Widget.PopupMenu.Small">
         <item name="android:textColor">@color/mp.theme.dark_blue.colorPrimary</item>
+    </style>
+
+    <style name="MultipleStatusView" />
+
+    <style name="MultipleStatusView.Content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textColor">#a9b7b7</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>
