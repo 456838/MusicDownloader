@@ -10,6 +10,7 @@ import com.salton123.util.NetUtil
 import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
+import io.github.ryanhoo.music.data.model.HotSongList
 import kotlinx.android.synthetic.main.fragment_recommend.*
 
 /**
@@ -36,11 +37,11 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
 
     override fun onRefresh(isPullDown: Boolean) {
         refreshLayout.setLoadComplete(false)
-        mXmlyAdapter.clear()
+        mAdapter.clear()
         getData()
     }
 
-    private val mXmlyAdapter by lazy { RecommendAdapter(_mActivity, mPresenter) }
+    private val mAdapter by lazy { RecommendAdapter(_mActivity, mPresenter) }
     override fun getLayout(): Int {
         return R.layout.fragment_recommend
     }
@@ -54,13 +55,13 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
             multipleStatusView.showNoNetwork()
         }
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
-        mRecyclerView.adapter = mXmlyAdapter
+        mRecyclerView.adapter = mAdapter
         multipleStatusView.setOnClickListener { getData() }
         refreshLayout.setPinnedTime(1000)
         refreshLayout.setMoveForHorizontal(true)
         refreshLayout.pullLoadEnable = true
         refreshLayout.setAutoLoadMore(false)
-        mXmlyAdapter.customLoadMoreView = XRefreshViewFooter(context)
+        mAdapter.customLoadMoreView = XRefreshViewFooter(context)
         refreshLayout.enableReleaseToLoadMore(true)
         refreshLayout.enableRecyclerViewPullUp(true)
         refreshLayout.enablePullUpWhenLoadCompleted(true)
@@ -73,7 +74,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
     }
 
     private fun getData() {
-//        mPresenter.getDiscoveryRecommendAlbums("10")
+        mPresenter.getHotSongList()
 //        mPresenter.getCategoryBannersV2("1")
 //        mPresenter.getGuessLikeAlbum("50")
     }
@@ -87,7 +88,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
     }
 
     private fun showEmpty() {
-        if (mXmlyAdapter.getData().isEmpty()) {
+        if (mAdapter.getData().isEmpty()) {
             multipleStatusView.showEmpty()
         }
     }
@@ -97,28 +98,32 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
             multipleStatusView.showContent()
         }
         when (data) {
+            is HotSongList -> {
+                mAdapter.add(0, MultiTypeItem(MultiTypeItem.TYPE_HOT_SONG, data))
+                mAdapter.notifyItemChanged(0)
+            }
 //            is DiscoveryRecommendAlbumsList -> data.discoveryRecommendAlbumses.forEach {
-//                mXmlyAdapter.add(MultiTypeItem(XmlyParams.TYPE_RECOMMEND_ALBUMS, it))
-////                mXmlyAdapter.getData().sort()
-//                mXmlyAdapter.notifyItemInserted(XmlyParams.TYPE_RECOMMEND_ALBUMS)
+//                mAdapter.add(MultiTypeItem(XmlyParams.TYPE_RECOMMEND_ALBUMS, it))
+////                mAdapter.getData().sort()
+//                mAdapter.notifyItemInserted(XmlyParams.TYPE_RECOMMEND_ALBUMS)
 //            }
 //            is BannerV2List -> {
-//                mXmlyAdapter.add(MultiTypeItem(XmlyParams.TYPE_BANNER, data))
-////                mXmlyAdapter.getData().sort()
-//                mXmlyAdapter.notifyItemInserted(XmlyParams.TYPE_BANNER)
+//                mAdapter.add(MultiTypeItem(XmlyParams.TYPE_HOT_SONG, data))
+////                mAdapter.getData().sort()
+//                mAdapter.notifyItemInserted(XmlyParams.TYPE_HOT_SONG)
 //            }
 //            is GussLikeAlbumList -> {
-//                var target = mXmlyAdapter.getData().find { it.viewType == XmlyParams.TYPE_GUESS_LIKE }
+//                var target = mAdapter.getData().find { it.viewType == XmlyParams.TYPE_GUESS_LIKE }
 //                if (target != null) {
 //                    target.item = data
 //                } else {
 //                    target = MultiTypeItem(XmlyParams.TYPE_GUESS_LIKE, data)
-//                    mXmlyAdapter.add(target)
+//                    mAdapter.add(target)
 //                }
 //
-////                mXmlyAdapter.notifyItemChanged(XmlyParams.TYPE_GUESS_LIKE + 2)
-////                mXmlyAdapter.notifyItemInserted(mXmlyAdapter.getData().size)
-//                mXmlyAdapter.notifyDataSetChanged()
+////                mAdapter.notifyItemChanged(XmlyParams.TYPE_GUESS_LIKE + 2)
+////                mAdapter.notifyItemInserted(mAdapter.getData().size)
+//                mAdapter.notifyDataSetChanged()
 //            }
 //
 //            is BatchTrackList -> {

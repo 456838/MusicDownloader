@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        >
+
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/default_record_album"
+            />
+
+        <TextView
+            android:id="@+id/tvCreateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ffffff"
+            tools:text="2018-01-04"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#ffffff"
+        tools:text="内地摇滚新势力｜值得期待的声音"
+
+        />
+
+    <TextView
+        android:id="@+id/tvCreator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#ffffff"
+        tools:text="爱听歌的兽哥"
+        />
+</LinearLayout>

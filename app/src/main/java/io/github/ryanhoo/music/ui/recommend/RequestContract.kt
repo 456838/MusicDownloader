@@ -12,8 +12,7 @@ import com.salton123.mvp.view.BaseView
 interface RequestContract {
 
     interface IRequestPresenter : BasePresenter<IRequestView> {
-
-
+        fun getHotSongList()
     }
 
     interface IRequestView : BaseView {

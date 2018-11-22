@@ -1,5 +1,7 @@
 package io.github.ryanhoo.music.data.model
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * User: newSalton@outlook.com
  * Date: 2018/11/22 6:22 PM
@@ -8,16 +10,16 @@ package io.github.ryanhoo.music.data.model
  */
 
 data class HotSongList(
-    val result: String,
-    val code: Int,
-    val data: List<Data>
+    @SerializedName("result") val result: String,
+    @SerializedName("code") val code: Int,
+    @SerializedName("data") val data: List<HotSong>
 )
 
-data class Data(
-    val id: String,
-    val name: String,
-    val creator: String,
-    val createTime: String,
-    val pic: String,
-    val playCount: String
+data class HotSong(
+    @SerializedName("id") val id: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("creator") val creator: String,
+    @SerializedName("createTime") val createTime: String,
+    @SerializedName("pic") val pic: String,
+    @SerializedName("playCount") val playCount: String
 )

@@ -1,12 +1,16 @@
 package io.github.ryanhoo.music.ui.recommend
 
+import android.app.Activity
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.ImageView
 import com.hazz.kotlinmvp.view.recyclerview.MultipleType
 import com.hazz.kotlinmvp.view.recyclerview.ViewHolder
 import com.salton123.xmly.business.RequestContract
 import io.github.ryanhoo.music.R
-import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_BANNER
+import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_HOT_SONG
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_GUESS_LIKE
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_RECOMMEND_ALBUMS
 
@@ -21,7 +25,7 @@ class RecommendAdapter(context: Context, var presenter: RequestContract.IRequest
 
     override fun getLayoutId(item: MultiTypeItem, position: Int): Int {
         return when (item.viewType) {
-            TYPE_BANNER -> R.layout.adapter_item_play_type_banner
+            TYPE_HOT_SONG -> R.layout.adapter_item_hot_songs
 //            TYPE_GUESS_LIKE -> R.layout.xmly_item_play_type_guess_like
 //            TYPE_RECOMMEND_ALBUMS -> R.layout.xmly_item_play_type_recommend_albums
             else -> 0
@@ -29,37 +33,23 @@ class RecommendAdapter(context: Context, var presenter: RequestContract.IRequest
     }
 }) {
 
-    private val TAG = "XmlyAdapter"
+    private val TAG = "RecommendAdapter"
     var recyclerViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
     override fun bindData(holder: ViewHolder, data: MultiTypeItem, position: Int) {
+        val target = data.item
         when (data.viewType) {
-            TYPE_BANNER -> {
-//                var banner = holder.getView<BGABanner>(R.id.banner)
-//                banner.setAdapter(object : BGABanner.Adapter<ImageView, BannerV2> {
-//                    override fun fillBannerItem(banner: BGABanner?, itemView: ImageView?, model: BannerV2?, position: Int) {
-//                        itemView?.let {
-//                            //                            itemView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-//                            GlideApp.with(context)
-//                                .load(model?.bannerUrl)
-//                                .placeholder(R.drawable.placeholder_banner)
-//                                .thumbnail(0.5f)
-//                                .dontAnimate()
-//                                .transition(DrawableTransitionOptions().crossFade())
-//                                .centerInside()
-//                                .into(itemView)
-//                        }
-//                    }
-//                })
-//                banner.setDelegate(object : BGABanner.Delegate<ImageView, BannerV2> {
-//                    override fun onBannerItemClick(banner: BGABanner?, itemView: ImageView?, model: BannerV2?, position: Int) {
-////                        model?.bannerUrl?.let { Toast.makeText(context, "${model.bannerUrl}", Toast.LENGTH_LONG).show() }
-//                    }
-//                })
-//                if (data.item is BannerV2List) {
-//                    val bannerV2 = data.item as BannerV2List
-////                    banner.setData(bannerV2.bannerV2s, bannerV2.bannerV2s.map { it.kind })
-//                    banner.setData(bannerV2.bannerV2s, null)
-//                }
+
+            TYPE_HOT_SONG -> {
+                if (target is HotSongList) {
+                    holder.getView<RecyclerView>(R.id.hotRecyclerView).let {
+                        val layoutManager = LinearLayoutManager(context as Activity, LinearLayoutManager.HORIZONTAL, false)
+                        layoutManager.initialPrefetchItemCount = 3
+                        val hotSongAdapter = HotSongAdapter(context)
+                        hotSongAdapter.addAll(target.data.toMutableList())
+                        it.adapter = hotSongAdapter
+                        it.recycledViewPool = recyclerViewPool
+                    }
+                }
             }
             TYPE_GUESS_LIKE -> {
 //                if (data.item is GussLikeAlbumList) {

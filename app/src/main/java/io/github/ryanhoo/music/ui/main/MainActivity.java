@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         List<PermissionItem> permissionItems = new ArrayList<>();
         permissionItems.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE));
         permissionItems.add(new PermissionItem(Manifest.permission.WRITE_EXTERNAL_STORAGE));
+        permissionItems.add(new PermissionItem(Manifest.permission.INTERNET));
         HiPermission.create(this)
                 .permissions(permissionItems)
                 .checkMutiPermission(new PermissionCallback() {
@@ -92,7 +93,8 @@ public class MainActivity extends BaseActivity {
     private void checkPermission() {
         boolean hasReadStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
         boolean hasWriteStorgePermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (hasReadStorgePermission && hasWriteStorgePermission) {
+        boolean hasInternetPermission = HiPermission.checkPermission(getApplicationContext(), Manifest.permission.INTERNET);
+        if (hasReadStorgePermission && hasWriteStorgePermission && hasInternetPermission) {
             loadData();
         } else {
             Toast.makeText(getApplicationContext(), "请授予应用必要的权限以满足您的使用需求", Toast.LENGTH_LONG).show();
