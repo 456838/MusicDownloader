@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
-.gitignore
 .idea/workspace.xml
 app/build/
 app/libs/
-
 .idea/
+captures/
+build/
