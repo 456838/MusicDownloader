@@ -1,6 +1,7 @@
 package io.github.ryanhoo.music.ui.recommend
 
 import android.content.Context
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.hazz.kotlinmvp.view.recyclerview.ViewHolder
 import com.salton123.GlideApp
@@ -16,6 +17,12 @@ import io.github.ryanhoo.music.data.model.HotSong
  */
 
 class HotSongAdapter(context: Context) : CommonAdapter<HotSong>(context, R.layout.adapter_item_hot_songs_stub_shortcut) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = mInflater?.inflate(layoutId, null, false)
+        return ViewHolder(view!!)
+    }
+
     override fun bindData(holder: ViewHolder, data: HotSong, position: Int) {
         holder.setImagePath(R.id.ivThumbnail, object : ViewHolder.HolderImageLoader(data.pic) {
             override fun loadImage(iv: ImageView, path: String) {

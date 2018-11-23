@@ -2,16 +2,19 @@ package io.github.ryanhoo.music.ui.recommend
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.ImageView
 import com.hazz.kotlinmvp.view.recyclerview.MultipleType
 import com.hazz.kotlinmvp.view.recyclerview.ViewHolder
+import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemClickListener
+import com.hwangjr.rxbus.RxBus
 import com.salton123.xmly.business.RequestContract
 import io.github.ryanhoo.music.R
+import io.github.ryanhoo.music.data.model.HotSong
 import io.github.ryanhoo.music.data.model.HotSongList
-import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_HOT_SONG
+import io.github.ryanhoo.music.event.EventTags.FRAGMENT_DELEGATE
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_GUESS_LIKE
+import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_HOT_SONG
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem.TYPE_RECOMMEND_ALBUMS
 
 /**
@@ -38,53 +41,30 @@ class RecommendAdapter(context: Context, var presenter: RequestContract.IRequest
     override fun bindData(holder: ViewHolder, data: MultiTypeItem, position: Int) {
         val target = data.item
         when (data.viewType) {
-
             TYPE_HOT_SONG -> {
                 if (target is HotSongList) {
                     holder.getView<RecyclerView>(R.id.hotRecyclerView).let {
-                        val layoutManager = LinearLayoutManager(context as Activity, LinearLayoutManager.HORIZONTAL, false)
+                        val layoutManager = GridLayoutManager(context as Activity, 3)
+                        layoutManager.isAutoMeasureEnabled = true
                         layoutManager.initialPrefetchItemCount = 3
                         val hotSongAdapter = HotSongAdapter(context)
                         hotSongAdapter.addAll(target.data.toMutableList())
                         it.adapter = hotSongAdapter
+                        it.layoutManager = layoutManager
                         it.recycledViewPool = recyclerViewPool
+                        hotSongAdapter.setOnItemClickListener(object : OnItemClickListener {
+                            override fun onItemClick(obj: Any?, position: Int) {
+                                if (obj is HotSong) {
+                                    RxBus.get().post(FRAGMENT_DELEGATE,obj)
+                                }
+                            }
+                        })
                     }
                 }
             }
             TYPE_GUESS_LIKE -> {
-//                if (data.item is GussLikeAlbumList) {
-//                    val gussLikeAlbumList = data.item as GussLikeAlbumList
-//                    gussLikeAlbumList.albumList.shuffle()
-//                    holder.setText(R.id.tv_title, "猜你喜欢")
-//                    holder.getView<RecyclerView>(R.id.fl_recyclerView).let {
-//                        val layoutManager = LinearLayoutManager(context as Activity, LinearLayoutManager.HORIZONTAL, false)
-//                        layoutManager.initialPrefetchItemCount = 3
-//                        it.layoutManager = layoutManager
-//                        it.recycledViewPool = recyclerViewPool
-//                        it.adapter = GuessLikeTypeHorizontalAdapter(context, gussLikeAlbumList.albumList.subList(0, 10), R.layout.xmly_item_play_type_guess_like_stub)
-//                    }
-//                    holder.getView<TextView>(R.id.tv_more).let {
-//                        it.setOnClickListener {
-//                            Toast.makeText(context, "换一批", Toast.LENGTH_LONG).show()
-//                            presenter.getGuessLikeAlbum("50")
-//                        }
-//                    }
-//                }
             }
             TYPE_RECOMMEND_ALBUMS -> {
-//                if (data.item is DiscoveryRecommendAlbums) {
-//                    val discoveryRecommendAlbum = data.item as DiscoveryRecommendAlbums
-//                    holder.setText(R.id.tv_title, discoveryRecommendAlbum.displayCategoryName)
-//                    holder.getView<RecyclerView>(R.id.fl_recyclerView).let {
-//                        it.layoutManager = LinearLayoutManager(context as Activity, LinearLayoutManager.HORIZONTAL, false)
-//                        it.adapter = DiscoveryRecommendAlbumsAdapter(context, discoveryRecommendAlbum.albumList, R.layout.xmly_item_play_type_recommend_albums_stub)
-//                        it.recycledViewPool = recyclerViewPool
-//                    }
-//                    holder.getView<TextView>(R.id.tv_more).let {
-//                        it.setOnClickListener { Toast.makeText(context, "更多", Toast.LENGTH_LONG).show() }
-//                    }
-//                }
-
             }
         }
     }

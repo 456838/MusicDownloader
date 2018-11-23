@@ -13,6 +13,7 @@ interface RequestContract {
 
     interface IRequestPresenter : BasePresenter<IRequestView> {
         fun getHotSongList()
+        fun getSongList(songId: Int)
     }
 
     interface IRequestView : BaseView {

@@ -1,6 +1,7 @@
 package io.github.ryanhoo.music.data.model
 
 import com.google.gson.annotations.SerializedName
+import io.github.ryanhoo.music.event.IFragmentDelegateEvent
 
 /**
  * User: newSalton@outlook.com
@@ -21,5 +22,5 @@ data class HotSong(
     @SerializedName("creator") val creator: String,
     @SerializedName("createTime") val createTime: String,
     @SerializedName("pic") val pic: String,
-    @SerializedName("playCount") val playCount: String
-)
+    @SerializedName("playCount") val playCount: String)
+    : IFragmentDelegateEvent

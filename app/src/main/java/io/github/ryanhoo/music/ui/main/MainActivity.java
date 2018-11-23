@@ -9,24 +9,31 @@ import android.support.v7.widget.Toolbar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.salton123.base.FragmentDelegate;
+import com.salton123.util.EventUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import io.github.ryanhoo.music.R;
+import io.github.ryanhoo.music.data.model.HotSong;
+import io.github.ryanhoo.music.event.EventTags;
 import io.github.ryanhoo.music.ui.base.BaseActivity;
-import io.github.ryanhoo.music.ui.base.BaseFragment;
 import io.github.ryanhoo.music.ui.local.LocalFilesFragment;
 import io.github.ryanhoo.music.ui.music.MusicPlayerFragment;
-import io.github.ryanhoo.music.ui.playlist.PlayListFragment;
 import io.github.ryanhoo.music.ui.recommend.RecommendFragment;
 import io.github.ryanhoo.music.ui.settings.SettingsFragment;
+import io.github.ryanhoo.music.ui.songlist.SongListFragment;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import me.yokeyword.fragmentation.ISupportFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -53,7 +60,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initVariable(Bundle bundle) {
-
+        EventUtil.register(this);
     }
 
     @Override
@@ -157,4 +164,22 @@ public class MainActivity extends BaseActivity {
         toolbar.setTitle(mTitles[position]);
     }
 
+    @Subscribe(tags = {@Tag(EventTags.FRAGMENT_DELEGATE)})
+    public void onFragmentDelegate(Object event) {
+        ISupportFragment fragment = null;
+        if (event instanceof HotSong) {
+            Bundle bundle = new Bundle();
+            bundle.putString(FragmentDelegate.ARG_ITEM, ((HotSong) event).getId());
+            fragment = FragmentDelegate.Companion.newInstance(SongListFragment.class, bundle);
+        }
+        if (fragment != null) {
+            startWithPop(fragment);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventUtil.unregister(this);
+    }
 }

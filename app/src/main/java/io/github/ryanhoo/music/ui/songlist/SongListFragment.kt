@@ -1,4 +1,4 @@
-package io.github.ryanhoo.music.ui.recommend
+package io.github.ryanhoo.music.ui.songlist
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -11,15 +11,17 @@ import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
 import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.ui.recommend.MultiTypeItem
+import io.github.ryanhoo.music.ui.recommend.RecommendAdapter
 import kotlinx.android.synthetic.main.fragment_recommend.*
 
 /**
  * User: newSalton@outlook.com
- * Date: 2018/11/22 2:50 PM
- * ModifyTime: 2:50 PM
+ * Date: 2018/11/23 6:36 PM
+ * ModifyTime: 6:36 PM
  * Description:
  */
-class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestPresenter>()
+class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPresenter>()
     , RequestContract.IRequestView, XRefreshView.XRefreshViewListener {
 
     override fun onHeaderMove(headerMovePercent: Double, offsetY: Int) {
@@ -43,7 +45,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
 
     private val mAdapter by lazy { RecommendAdapter(_mActivity, mPresenter) }
     override fun getLayout(): Int {
-        return R.layout.fragment_recommend
+        return R.layout.fragment_song_list
     }
 
     override fun initVariable(savedInstanceState: Bundle?) {

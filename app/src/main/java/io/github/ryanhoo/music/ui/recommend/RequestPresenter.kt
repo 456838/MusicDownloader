@@ -1,5 +1,6 @@
 package com.salton123.xmly.business
 
+import android.annotation.SuppressLint
 import com.salton123.mvp.presenter.RxPresenter
 import com.salton123.util.RxUtils
 import io.github.ryanhoo.music.ui.recommend.api.QQMusicApi.Companion.getQQMusicService
@@ -11,6 +12,20 @@ import io.github.ryanhoo.music.ui.recommend.api.QQMusicApi.Companion.getQQMusicS
  * Description:
  */
 class RequestPresenter : RxPresenter<RequestContract.IRequestView>(), RequestContract.IRequestPresenter {
+
+    @SuppressLint("CheckResult")
+    override fun getSongList(songId: Int) {
+        getQQMusicService()
+            .songList("$songId ")
+            .compose(RxUtils.rxSchedulerHelper())
+            .subscribe({
+                mView?.onSucceed(it)
+            }, {
+                mView?.onError(-2, it.localizedMessage)
+            })
+    }
+
+    @SuppressLint("CheckResult")
     override fun getHotSongList() {
         getQQMusicService()
             .hotSongList("10000000", "3", "60")

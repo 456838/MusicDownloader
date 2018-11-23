@@ -2,6 +2,7 @@ package io.github.ryanhoo.music.ui.recommend.api
 
 import com.salton123.config.RetrofitManager
 import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.data.model.SongList
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -28,11 +29,20 @@ interface QQMusicApi {
      * limit 获取数量 默认60 最大值60
      * https://api.bzqll.com/music/tencent/hotSongList?key=579621905&categoryId=10000000&sortId=3&limit=60
      */
-    @GET("hotSongList?key=579621905}")
-    fun hotSongList(@Query("categoryId") categoryId: String,
-                    @Query("sortId") sortId: String,
-                    @Query("limit") limit: String
+    @GET("hotSongList?key=579621905")
+    fun hotSongList(
+        @Query("categoryId") categoryId: String,
+        @Query("sortId") sortId: String,
+        @Query("limit") limit: String
     ): Observable<HotSongList>
 
-
+    /**
+     * 歌单获取
+     * id 	√ 	歌单的ID 	无
+     * https://api.bzqll.com/music/tencent/songList?key=579621905&id=1147906982
+     */
+    @GET("songList?key=579621905")
+    fun songList(
+        @Query("id") songId: String
+    ): Observable<SongList>
 }
