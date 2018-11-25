@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.liulishuo.okdownload:okhttp-1.0.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.0.5.aar/f4f4d7fa10aff3182ddae425f4c5993d/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/okhttp-1.0.5.aar/f4f4d7fa10aff3182ddae425f4c5993d/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.liulishuo.okdownload/okhttp/1.0.5/8d7c1525f794fa8c2ad4db9782b26184ffabb3c0/okhttp-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -23,6 +23,7 @@ allprojects {
         maven { setUrl("https://dl.bintray.com/456838/saltonFramework/") }
         mavenLocal()
         maven { url '../../repo' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     configurations.all {
         resolutionStrategy {

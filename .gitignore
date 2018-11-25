@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/workspace.xml
-app/build/
-app/libs/
-captures/
-build/
+#.idea/workspace.xml
+#app/build/
+#app/libs/
+#captures/
+#build/

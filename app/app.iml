@@ -22,12 +22,16 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="Common (experimental) " useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/build/tmp/kotlin-classes/debug" />
-          <option name="classpath" value="$MODULE_DIR$/libs/lite-orm-1.9.2.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/design-26.0.2.aar/beb7bd373fd9af092d89840fc37835fb/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/library-1.0.8.aar/a70e2d39d51ef1ebda07e28aa5a09f9c/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/saltonFramework-0.1.3.3.aar/0367c8e5840bf92a12105bc23e85ac4d/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/barlibrary-2.3.0.aar/0e8c26d0a913f7365443afbc1d7ee30d/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.0.2.aar/72badad01d40ede479ce17f6d8d533e7/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.0.2.aar/51a65ff1a1bae5a6169a5a727fc00acd/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/xlog-0.0.0.5.aar/950f4376af4b3948e76c8097d0172a3e/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.10/b178c1501609c6e4ee8be635513cb023a466457d/kotlin-stdlib-1.3.10.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/butterknife-8.4.0.aar/274bec96d8fa4a8051c8b532519cf8ea/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/xrefreshview-3.6.9.aar/49b23a01312f622a6d32dd30470d0d42/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.0.2.aar/c1e5cd339e3afdf9a29c2e92b94de045/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.0.2.aar/e9ec66b709ec432d1ed64c0723e30900/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/transition-26.0.2.aar/b7e617642c808321aba30a6f209a2348/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-v4-26.0.2.aar/79bab2a8e0a532f0b967429803430b03/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/glide-4.7.1.aar/4ada3db809b2e7edc10337828f741a63/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-fragment-26.0.2.aar/b0d66a399eff50ed09f2241924215aa4/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.0.2.aar/ff65b543000a41211fdd2cc6fd35ee31/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.0.2.aar/62cd1f009bdeddb21b341506b4c6499f/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.0.2.aar/576462e0a611f9e9280fd0af2b3993ca/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/support-compat-26.0.2.aar/338749a8fec716bd9e2c21287eae1949/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/rxbus-2.0.0.aar/6b6131d356653a531afd34adbefd3283/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/gifdecoder-4.7.1.aar/01743f450ce342f2040191a98036b171/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/26.0.2/8b68a849722b44f584e2d68c451c5e3844c10380/support-annotations-26.0.2.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.4.0/15d7790ee311d961379c51b00aba12d5967cb7ea/converter-gson-2.4.0.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf/gson-2.8.2.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/fragmentation-1.3.3.aar/f7c72891d6306d62978c0e8c94f87873/jars/classes.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/fragmentation-swipeback-1.3.3.aar/e3d260fb01d5e0272480c0beb68bb75c/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/adapter-rxjava2/2.4.0/9286ea8ac29dc3822cca03291259db825e118506/adapter-rxjava2-2.4.0.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.4.0/fc4aa382632bfaa7be7b41579efba41d5a71ecf3/retrofit-2.4.0.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.10.0/7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e/okhttp-3.10.0.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/rxandroid-2.0.2.aar/27abf772b0e617fcf36c60257c533051/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.1.12/975d34a9f14da5b0aecffa603501e9716aae5aa4/rxjava-2.1.12.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/fragmentation-core-1.3.3.aar/b663111ab6074b72536148122f913619/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.14.0/102d7be47241d781ef95f1581d414b0943053130/okio-1.14.0.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/disklrucache/4.7.1/21e6054c134c7f5c435ab7635984f39c5375083e/disklrucache-4.7.1.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/annotations/4.7.1/796c0bf0a61141278c4bc32de2b92e6eb7fa8b1a/annotations-4.7.1.jar:/Users/elsa/.gradle/caches/transforms-1/files-1.1/timber-4.5.1.aar/fd78522d58122c18a6003fa6f4f1c61b/jars/classes.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.10/1b19d99229dcedad7caf50534dce38fe82845269/kotlin-stdlib-common-1.3.10.jar:/Users/elsa/.gradle/caches/modules-2/files-2.1/org.reactivestreams/reactive-streams/1.0.2/323964c36556eb0e6209f65c1cef72b53b461ab8/reactive-streams-1.0.2.jar:/Users/elsa/Library/Android/sdk/platforms/android-26/android.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
           <option name="moduleName" value="app_debug" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="loadBuiltInsFromDependencies" value="true" />
           <option name="languageVersion" value="1.2" />
           <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
@@ -131,12 +135,13 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
+    <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.jakewharton.timber:timber-4.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.10@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-26.0.2" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxjava:2.1.12@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.liulishuo.okdownload:okdownload-1.0.5" level="project" />
     <orderEntry type="library" name="Gradle: me.yokeyword:fragmentation-swipeback-1.3.3" level="project" />
     <orderEntry type="library" name="Gradle: me.yokeyword:fragmentation-1.3.3" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.retrofit2:retrofit:2.4.0@jar" level="project" />
@@ -150,6 +155,7 @@
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-annotations:8.4.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.hwangjr.rxbus:rxbus-2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.salton123:saltonFramework-0.1.3.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.liulishuo.okdownload:okhttp-1.0.5" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-26.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-26.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-compat-26.0.2" level="project" />
@@ -161,6 +167,7 @@
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.10@jar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/Users/elsa/androidProject/MusicDownloader/app/libs/lite-orm-1.9.2.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7-26.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.liulishuo.okdownload:sqlite-1.0.5" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid-2.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-vector-drawable-26.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-26.0.2" level="project" />
@@ -175,6 +182,5 @@
     <orderEntry type="library" name="Gradle: com.github.bumptech.glide:annotations:4.7.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:design-26.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.gyf.barlibrary:barlibrary-2.3.0" level="project" />
-    <orderEntry type="library" name="Gradle: android-android-26" level="project" />
   </component>
 </module>

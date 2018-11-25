@@ -1,11 +1,17 @@
 package io.github.ryanhoo.music.ui.songlist
 
 import android.os.Bundle
+import android.support.annotation.NonNull
+import android.support.annotation.Nullable
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.andview.refreshview.XRefreshView
 import com.andview.refreshview.XRefreshViewFooter
 import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemClickListener
 import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemLongClickListener
+import com.liulishuo.okdownload.DownloadListener
+import com.liulishuo.okdownload.DownloadTask
+import com.liulishuo.okdownload.core.listener.DownloadListener4WithSpeed
 import com.salton123.base.FragmentDelegate
 import com.salton123.log.XLog
 import com.salton123.mvp.ui.BaseSupportPresenterFragment
@@ -19,6 +25,14 @@ import io.github.ryanhoo.music.data.model.SongListSong
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem
 import io.github.ryanhoo.music.ui.recommend.RecommendAdapter
 import kotlinx.android.synthetic.main.fragment_recommend.*
+import java.io.File
+import com.liulishuo.okdownload.core.cause.EndCause
+import com.liulishuo.okdownload.core.cause.ResumeFailedCause
+import com.liulishuo.okdownload.SpeedCalculator
+import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo
+import com.liulishuo.okdownload.core.listener.DownloadListener2
+import java.util.concurrent.atomic.AtomicLong
+
 
 /**
  * User: newSalton@outlook.com
@@ -78,9 +92,22 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
             override fun onItemClick(obj: Any?, position: Int) {
                 if (obj is SongListSong) {
                     longToast(obj.url)
+                    DownloadTask.Builder(obj.url, File("/sdcard/music/${obj.name}-${obj.singer}.mp3")).build()
+                        .enqueue(SampleListener())
                 }
             }
         })
+    }
+
+    private open inner class SampleListener : DownloadListener2() {
+        override fun taskStart(@NonNull task: DownloadTask) {
+            print("task start")
+        }
+
+        override fun taskEnd(@NonNull task: DownloadTask, @NonNull cause: EndCause,
+                             @Nullable realCause: Exception?) {
+            longToast("下载完成")
+        }
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
