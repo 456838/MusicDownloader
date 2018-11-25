@@ -15,9 +15,10 @@ import java.util.List;
 import io.github.ryanhoo.music.R;
 import io.github.ryanhoo.music.data.model.HotSong;
 import io.github.ryanhoo.music.event.EventTags;
+import io.github.ryanhoo.music.event.SearchActEvent;
 import io.github.ryanhoo.music.ui.base.BaseActivity;
+import io.github.ryanhoo.music.ui.search.SearchFragment;
 import io.github.ryanhoo.music.ui.songlist.SongListFragment;
-import io.github.ryanhoo.music.ui.songlist.TsComp;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
@@ -90,6 +91,8 @@ public class MainActivity extends BaseActivity {
             Bundle bundle = new Bundle();
             bundle.putString(FragmentDelegate.ARG_ITEM, ((HotSong) event).getId());
             fragment = FragmentDelegate.Companion.newInstance(SongListFragment.class, bundle);
+        } else if (event instanceof SearchActEvent) {
+            fragment = FragmentDelegate.Companion.newInstance(SearchFragment.class);
         }
         if (fragment != null) {
             start(fragment);

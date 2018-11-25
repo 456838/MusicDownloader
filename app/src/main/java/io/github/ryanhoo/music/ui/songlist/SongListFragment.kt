@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.annotation.Nullable
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.andview.refreshview.XRefreshView
-import com.andview.refreshview.XRefreshViewFooter
-import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemClickListener
-import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemLongClickListener
-import com.liulishuo.okdownload.DownloadListener
 import com.liulishuo.okdownload.DownloadTask
-import com.liulishuo.okdownload.core.listener.DownloadListener4WithSpeed
+import com.liulishuo.okdownload.core.cause.EndCause
+import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.salton123.base.FragmentDelegate
 import com.salton123.log.XLog
 import com.salton123.mvp.ui.BaseSupportPresenterFragment
@@ -19,21 +15,10 @@ import com.salton123.util.NetUtil
 import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
-import io.github.ryanhoo.music.data.model.HotSongList
 import io.github.ryanhoo.music.data.model.SongList
-import io.github.ryanhoo.music.data.model.SongListSong
-import io.github.ryanhoo.music.ui.recommend.MultiTypeItem
-import io.github.ryanhoo.music.ui.recommend.RecommendAdapter
-import kotlinx.android.synthetic.main.fragment_recommend.*
-import java.io.File
-import com.liulishuo.okdownload.core.cause.EndCause
-import com.liulishuo.okdownload.core.cause.ResumeFailedCause
-import com.liulishuo.okdownload.SpeedCalculator
-import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo
-import com.liulishuo.okdownload.core.listener.DownloadListener2
 import io.github.ryanhoo.music.ui.widget.XRefreshViewFooterStyle
 import io.github.ryanhoo.music.ui.widget.XRefreshViewHeaderStyle
-import java.util.concurrent.atomic.AtomicLong
+import kotlinx.android.synthetic.main.fragment_recommend.*
 
 
 /**

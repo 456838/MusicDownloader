@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.andview.refreshview.XRefreshView
 import com.andview.refreshview.XRefreshViewFooter
+import com.hwangjr.rxbus.RxBus
 import com.salton123.log.XLog
 import com.salton123.mvp.ui.BaseSupportPresenterFragment
 import com.salton123.util.NetUtil
@@ -11,6 +12,8 @@ import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
 import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.event.EventTags
+import io.github.ryanhoo.music.event.SearchActEvent
 import io.github.ryanhoo.music.ui.widget.XRefreshViewFooterStyle
 import io.github.ryanhoo.music.ui.widget.XRefreshViewHeaderStyle
 import kotlinx.android.synthetic.main.fragment_recommend.*
@@ -59,7 +62,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
         mRecyclerView.adapter = mAdapter
         multipleStatusView.setOnClickListener { getData() }
-        refreshLayout.setPinnedTime(1000)
+        refreshLayout.setPinnedTime(1500)
         refreshLayout.setMoveForHorizontal(true)
         refreshLayout.pullLoadEnable = true
         refreshLayout.setAutoLoadMore(false)
@@ -70,6 +73,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
         refreshLayout.enableRecyclerViewPullUp(true)
         refreshLayout.enablePullUpWhenLoadCompleted(true)
         refreshLayout.setXRefreshViewListener(this)
+        etSearch.setOnClickListener { RxBus.get().post(EventTags.FRAGMENT_DELEGATE, SearchActEvent()) }
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -102,7 +106,7 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
         when (data) {
             is HotSongList -> {
                 mAdapter.add(0, MultiTypeItem(MultiTypeItem.TYPE_HOT_SONG, data))
-                mAdapter.notifyItemChanged(0)
+                mAdapter.notifyItemChanged(1)
             }
         }
         refreshLayout.stopRefresh()
