@@ -1,6 +1,5 @@
 package io.github.ryanhoo.music.ui.base;
 
-import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import io.github.ryanhoo.music.R;
 import io.github.ryanhoo.music.utils.GradientUtils;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created with Android Studio.
@@ -31,10 +29,10 @@ public abstract class BaseActivity extends BaseSupportActivity {
 
     private CompositeDisposable mSubscriptions;
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+    // @Override
+    // protected void attachBaseContext(Context newBase) {
+    //     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    // }
 
     @Override
     public void onAttachedToWindow() {

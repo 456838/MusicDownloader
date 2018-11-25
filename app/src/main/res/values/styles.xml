@@ -130,7 +130,7 @@
     <!-- TextAppearance -->
 
     <style name="MP.Theme.TextAppearance">
-        <item name="fontPath">@string/mp.font.roboto.monospace.regular</item>
+        <!--<item name="fontPath">@string/mp.font.roboto.monospace.regular</item>-->
     </style>
 
     <style name="MP.Theme.TextAppearance.Toolbar">

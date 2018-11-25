@@ -1,9 +1,6 @@
 package io.github.ryanhoo.music;
 
 import com.salton123.base.ApplicationBase;
-import com.salton123.config.RetrofitManager;
-
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created with Android Studio.
@@ -18,12 +15,12 @@ public class MusicPlayerApplication extends ApplicationBase {
     public void onCreate() {
         super.onCreate();
         // Custom fonts
-        CalligraphyConfig.initDefault(
-                new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Roboto-Monospace-Regular.ttf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
-        );
+        // CalligraphyConfig.initDefault(
+        //         new CalligraphyConfig.Builder()
+        //                 .setDefaultFontPath("fonts/Roboto-Monospace-Regular.ttf")
+        //                 .setFontAttrId(R.attr.fontPath)
+        //                 .build()
+        // );
     }
 
 }
