@@ -8,7 +8,7 @@
     android:layout_height="?android:attr/actionBarSize"
     android:layout_gravity="end"
     android:gravity="center_vertical"
-    tools:showIn="@layout/activity_main"
+    tools:showIn="@layout/comp_main"
     android:divider="@drawable/common_divider_large_horizontal"
     android:showDividers="beginning|middle|end"
     >

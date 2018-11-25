@@ -5,6 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { setUrl("https://dl.bintray.com/456838/") }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -19,14 +20,9 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        maven { setUrl("https://dl.bintray.com/456838/saltonFramework/") }
         mavenLocal()
-        maven { url 'https://jitpack.io' }
         maven { url '../../repo' }
-        maven {
-            url  "http://dl.bintray.com/fotoapparat/fotoapparat"
-        }
-
     }
     configurations.all {
         resolutionStrategy {

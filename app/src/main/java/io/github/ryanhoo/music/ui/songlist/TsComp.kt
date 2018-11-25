@@ -18,4 +18,9 @@ class TsComp : BaseSupportFragment() {
 
     override fun initViewAndData() {
     }
+
+    override fun onBackPressedSupport(): Boolean {
+        pop()
+        return true
+    }
 }

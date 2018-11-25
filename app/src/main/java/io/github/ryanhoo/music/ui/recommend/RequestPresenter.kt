@@ -14,9 +14,9 @@ import io.github.ryanhoo.music.ui.recommend.api.QQMusicApi.Companion.getQQMusicS
 class RequestPresenter : RxPresenter<RequestContract.IRequestView>(), RequestContract.IRequestPresenter {
 
     @SuppressLint("CheckResult")
-    override fun getSongList(songId: Int) {
+    override fun getSongList(songId: String) {
         getQQMusicService()
-            .songList("$songId ")
+            .songList(songId)
             .compose(RxUtils.rxSchedulerHelper())
             .subscribe({
                 mView?.onSucceed(it)

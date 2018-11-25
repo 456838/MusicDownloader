@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.andview.refreshview.XRefreshView
 import com.andview.refreshview.XRefreshViewFooter
+import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemClickListener
+import com.hazz.kotlinmvp.view.recyclerview.adapter.OnItemLongClickListener
+import com.salton123.base.FragmentDelegate
 import com.salton123.log.XLog
 import com.salton123.mvp.ui.BaseSupportPresenterFragment
 import com.salton123.util.NetUtil
@@ -11,6 +14,8 @@ import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
 import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.data.model.SongList
+import io.github.ryanhoo.music.data.model.SongListSong
 import io.github.ryanhoo.music.ui.recommend.MultiTypeItem
 import io.github.ryanhoo.music.ui.recommend.RecommendAdapter
 import kotlinx.android.synthetic.main.fragment_recommend.*
@@ -43,13 +48,15 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
         getData()
     }
 
-    private val mAdapter by lazy { RecommendAdapter(_mActivity, mPresenter) }
+    private val mAdapter by lazy { SongListAdapter(_mActivity) }
     override fun getLayout(): Int {
         return R.layout.fragment_song_list
     }
 
+    private var songListId = ""
     override fun initVariable(savedInstanceState: Bundle?) {
         mPresenter = RequestPresenter()
+        songListId = arguments.getString(FragmentDelegate.ARG_ITEM)
     }
 
     override fun initViewAndData() {
@@ -63,11 +70,17 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
         refreshLayout.setMoveForHorizontal(true)
         refreshLayout.pullLoadEnable = true
         refreshLayout.setAutoLoadMore(false)
-        mAdapter.customLoadMoreView = XRefreshViewFooter(context)
         refreshLayout.enableReleaseToLoadMore(true)
         refreshLayout.enableRecyclerViewPullUp(true)
         refreshLayout.enablePullUpWhenLoadCompleted(true)
         refreshLayout.setXRefreshViewListener(this)
+        mAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(obj: Any?, position: Int) {
+                if (obj is SongListSong) {
+                    longToast(obj.url)
+                }
+            }
+        })
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
@@ -76,7 +89,7 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
     }
 
     private fun getData() {
-        mPresenter.getHotSongList()
+        mPresenter.getSongList(songListId)
     }
 
     val TAG = "RecommendComponent"
@@ -98,9 +111,9 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
             multipleStatusView.showContent()
         }
         when (data) {
-            is HotSongList -> {
-                mAdapter.add(0, MultiTypeItem(MultiTypeItem.TYPE_HOT_SONG, data))
-                mAdapter.notifyItemChanged(0)
+            is SongList -> {
+                mAdapter.addAll(data.data.songs.toMutableList())
+                mAdapter.notifyDataSetChanged()
             }
         }
         refreshLayout.stopRefresh()
@@ -108,4 +121,8 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
         showEmpty()
     }
 
+    override fun onBackPressedSupport(): Boolean {
+        pop()
+        return true
+    }
 }

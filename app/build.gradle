@@ -33,7 +33,7 @@ dependencies {
     kapt 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
     implementation 'me.weyye.hipermission:library:1.0.8'
-    implementation "com.salton123:saltonFramework:+"
+    implementation "com.salton123:saltonFramework:0.1.3.3"
     implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
 }
 

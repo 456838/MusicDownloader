@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.salton123:xlog-0.0.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xlog-0.0.0.5.aar/950f4376af4b3948e76c8097d0172a3e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/xlog-0.0.0.5.aar/950f4376af4b3948e76c8097d0172a3e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.salton123/xlog/0.0.0.5/b993abe5e41fc85bd73cbfde16b2a8a1b46ec15/xlog-0.0.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

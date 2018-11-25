@@ -1,15 +1,15 @@
  ext {
-    android = [
-            compileSdkVersion: 25,
-            buildToolsVersion: "25.0.2",
-            minSdkVersion    : 19,
-            targetSdkVersion : 25,
-            versionCode      : 1,
-            versionName      : "1.0"
-    ]
+     android = [
+             compileSdkVersion: 26,
+             buildToolsVersion: "26.0.2",
+             minSdkVersion    : 22,
+             targetSdkVersion : 28,
+             versionCode      : 1,
+             versionName      : "1.0"
+     ]
 
-    dependVersion = [
-            androidSupportSdkVersion: "25.4.0",
+     dependVersion = [
+             androidSupportSdkVersion: "26.0.2",
             retrofitSdkVersion      : "2.3.0",
             glideSdkVersion         : "4.0.0",
             rxJava                  : "2.1.5",
