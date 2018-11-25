@@ -31,6 +31,8 @@ import com.liulishuo.okdownload.core.cause.ResumeFailedCause
 import com.liulishuo.okdownload.SpeedCalculator
 import com.liulishuo.okdownload.core.breakpoint.BreakpointInfo
 import com.liulishuo.okdownload.core.listener.DownloadListener2
+import io.github.ryanhoo.music.ui.widget.XRefreshViewFooterStyle
+import io.github.ryanhoo.music.ui.widget.XRefreshViewHeaderStyle
 import java.util.concurrent.atomic.AtomicLong
 
 
@@ -87,16 +89,18 @@ class SongListFragment : BaseSupportPresenterFragment<RequestContract.IRequestPr
         refreshLayout.enableReleaseToLoadMore(true)
         refreshLayout.enableRecyclerViewPullUp(true)
         refreshLayout.enablePullUpWhenLoadCompleted(true)
+        refreshLayout.setCustomHeaderView(XRefreshViewHeaderStyle(_mActivity))
+        refreshLayout.setCustomFooterView(XRefreshViewFooterStyle(_mActivity))
         refreshLayout.setXRefreshViewListener(this)
-        mAdapter.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(obj: Any?, position: Int) {
-                if (obj is SongListSong) {
-                    longToast(obj.url)
-                    DownloadTask.Builder(obj.url, File("/sdcard/music/${obj.name}-${obj.singer}.mp3")).build()
-                        .enqueue(SampleListener())
-                }
-            }
-        })
+//        mAdapter.setOnItemClickListener(object : OnItemClickListener {
+//            override fun onItemClick(obj: Any?, position: Int) {
+//                if (obj is SongListSong) {
+//                    longToast(obj.url)
+//                    DownloadTask.Builder(obj.url, File("/sdcard/music/${obj.name}-${obj.singer}.mp3")).build()
+//                        .enqueue(SampleListener())
+//                }
+//            }
+//        })
     }
 
     private open inner class SampleListener : DownloadListener2() {

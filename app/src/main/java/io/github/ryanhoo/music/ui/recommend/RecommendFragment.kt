@@ -11,6 +11,8 @@ import com.salton123.xmly.business.RequestContract
 import com.salton123.xmly.business.RequestPresenter
 import io.github.ryanhoo.music.R
 import io.github.ryanhoo.music.data.model.HotSongList
+import io.github.ryanhoo.music.ui.widget.XRefreshViewFooterStyle
+import io.github.ryanhoo.music.ui.widget.XRefreshViewHeaderStyle
 import kotlinx.android.synthetic.main.fragment_recommend.*
 
 /**
@@ -61,6 +63,8 @@ class RecommendFragment : BaseSupportPresenterFragment<RequestContract.IRequestP
         refreshLayout.setMoveForHorizontal(true)
         refreshLayout.pullLoadEnable = true
         refreshLayout.setAutoLoadMore(false)
+        refreshLayout.setCustomHeaderView(XRefreshViewHeaderStyle(_mActivity))
+        refreshLayout.setCustomFooterView(XRefreshViewFooterStyle(_mActivity))
         mAdapter.customLoadMoreView = XRefreshViewFooter(context)
         refreshLayout.enableReleaseToLoadMore(true)
         refreshLayout.enableRecyclerViewPullUp(true)
