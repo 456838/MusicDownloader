@@ -5,8 +5,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion "${rootProject.ext.android.compileSdkVersion}" as Integer
-    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}" as String
+    compileSdkVersion 26
+//    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}" as String
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion as Integer
         targetSdkVersion rootProject.ext.android.targetSdkVersion as Integer
@@ -21,24 +21,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:24.2.0'
     implementation 'com.android.support:design:24.2.0'
     implementation 'com.android.support:recyclerview-v7:24.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$properyVersion.kotlinVersion"
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
-//    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
+    //    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
     implementation 'me.weyye.hipermission:library:1.0.8'
-    implementation "com.salton123:saltonFramework:0.1.3.3"
+    implementation('com.salton123:saltonFramework:0.1.3.3') {
+        exclude group: "com.hwangjr.rxbus"
+    }
     implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
-
-    implementation "com.liulishuo.okdownload:okdownload:1.0.5"
-    implementation "com.liulishuo.okdownload:sqlite:1.0.5"
-    implementation "com.liulishuo.okdownload:okhttp:1.0.5"
+    implementation 'com.liulishuo.okdownload:okdownload:1.0.5'
+    implementation 'com.liulishuo.okdownload:sqlite:1.0.5'
+    implementation 'com.liulishuo.okdownload:okhttp:1.0.5'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
 def getVersionCode(build) {

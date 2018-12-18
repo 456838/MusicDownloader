@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.gyf.barlibrary:barlibrary-2.3.0">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/barlibrary-2.3.0.aar/4ebd56f2c606e2a63fe254a095aa9506/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/barlibrary-2.3.0.aar/4ebd56f2c606e2a63fe254a095aa9506/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/barlibrary-2.3.0.aar/328eb630a16af16aea0b107d5e15f946/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/barlibrary-2.3.0.aar/328eb630a16af16aea0b107d5e15f946/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

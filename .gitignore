@@ -4,3 +4,4 @@ app/build/
 app/libs/
 captures/
 build/
+/.idea/

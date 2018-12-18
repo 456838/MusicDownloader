@@ -25,13 +25,6 @@ public class MusicPlayerApplication extends ApplicationBase implements DownloadM
     @Override
     public void onCreate() {
         super.onCreate();
-        // Custom fonts
-        // CalligraphyConfig.initDefault(
-        //         new CalligraphyConfig.Builder()
-        //                 .setDefaultFontPath("fonts/Roboto-Monospace-Regular.ttf")
-        //                 .setFontAttrId(R.attr.fontPath)
-        //                 .build()
-        // );
         initDownloadConfig();
     }
 
