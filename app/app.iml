@@ -113,5 +113,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.1.1@jar" level="project" />
     <orderEntry type="module" module-name="corelite" />
+    <orderEntry type="module" module-name="corelite" />
   </component>
 </module>

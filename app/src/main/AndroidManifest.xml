@@ -42,7 +42,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.salton123.musicdownloader.SplashActivity"
+            android:name="com.salton123.musicdownloader.HomeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"

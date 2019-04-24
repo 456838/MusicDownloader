@@ -1,6 +1,6 @@
 package com.salton123.musicdownloader.manager;
 
-import com.salton123.musicdownloader.ui.fm.BrowserFragment;
+import com.salton123.musicdownloader.ui.fm.SearchResultFragment;
 
 /**
  * User: newSalton@outlook.com
@@ -9,13 +9,13 @@ import com.salton123.musicdownloader.ui.fm.BrowserFragment;
  * Description:
  */
 public class BrowserEntity {
-    public BrowserFragment fragment;
+    public SearchResultFragment fragment;
     public String tag;
     public String previewPicPath;
 
     public static BrowserEntity newInstance() {
         BrowserEntity entity = new BrowserEntity();
-        entity.fragment = new BrowserFragment();
+        entity.fragment = new SearchResultFragment();
         entity.tag = "BrowserFragment_" + System.currentTimeMillis();
         return entity;
     }

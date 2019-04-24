@@ -4,12 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.salton123.base.feature.PermissionFeature;
-import com.salton123.musicdownloader.manager.BrowserEntity;
-import com.salton123.musicdownloader.manager.BrowserManager;
-import com.salton123.musicdownloader.ui.fm.BrowserFragment;
-import com.salton123.musicdownloader.ui.fm.BrowserListPopupComp;
-import com.salton123.musicdownloader.ui.fm.MenuPopupComp;
-import com.salton123.musicdownloader.ui.fm.TitleMorePopupComp;
+import com.salton123.musicdownloader.ui.fm.SearchResultFragment;
 import com.salton123.utils.FragmentUtil;
 
 
@@ -19,9 +14,11 @@ import com.salton123.utils.FragmentUtil;
  * ModifyTime: 18:18
  * Description:
  */
-public class SplashActivity extends BookBaseActivity {
+public class HomeActivity extends BookBaseActivity {
 
-    private BrowserFragment mCurrentBrowserFragment;
+    private SearchResultFragment mCurrentSearchResultFragment;
+    private int searchType;
+    private String keyword;
 
     @Override
     public int getLayout() {
@@ -45,10 +42,8 @@ public class SplashActivity extends BookBaseActivity {
     }
 
     private void addBrowserInstance() {
-        BrowserEntity entity = BrowserEntity.newInstance();
-        mCurrentBrowserFragment = entity.fragment;
-        BrowserManager.INSTANCE.add(entity);
-        FragmentUtil.add(getFragmentManager(), entity.fragment, R.id.flContainer, entity.tag);
+        mCurrentSearchResultFragment = new SearchResultFragment();
+        FragmentUtil.add(getFragmentManager(), mCurrentSearchResultFragment, R.id.flContainer, "SearchResultFragment");
     }
 
     @Override
@@ -56,7 +51,8 @@ public class SplashActivity extends BookBaseActivity {
         switch (v.getId()) {
 
             case R.id.tvTitleMore:
-                new TitleMorePopupComp().show(getFragmentManager(), "TitleMorePopupWindow");
+                keyword = "";
+                mCurrentSearchResultFragment.startSearch(searchType, keyword);
                 break;
             default:
                 break;
@@ -66,6 +62,5 @@ public class SplashActivity extends BookBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BrowserManager.INSTANCE.clear();
     }
 }
