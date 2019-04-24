@@ -1,50 +1,70 @@
-import java.text.SimpleDateFormat
-
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+Properties configProp = new Properties()
+configProp.load(new FileInputStream(file("$rootDir/config.properties")))
 android {
-    compileSdkVersion 26
-//    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}" as String
+    compileSdkVersion "${rootProject.ext.android.compileSdkVersion}" as Integer
+    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}"
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion as Integer
         targetSdkVersion rootProject.ext.android.targetSdkVersion as Integer
-        applicationId 'io.github.ryanhoo.music'
-        versionCode getVersionCode("$BUILD")
-        versionName "$VERSION"
-        vectorDrawables.useSupportLibrary = true
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        applicationId "com.salton123.musicdownloader"
+        versionName rootProject.ext.android.versionName
+        versionCode rootProject.ext.android.versionCode as Integer
+        ndk {
+            abiFilters "armeabi-v7a"
         }
     }
-    buildToolsVersion '27.0.3'
+    signingConfigs {
+        release {
+            keyAlias configProp['keystore.keyAlias']
+            keyPassword configProp['keystore.keyPassword']
+            storeFile file(configProp['keystore.storeFile'])
+            storePassword configProp['keystore.storePassword']
+            // 使用旧版签名，禁用V2版签名模式
+            v2SigningEnabled false
+        }
+    }
+    android {
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix '00'
+            signingConfig signingConfigs.release
+//            minifyEnabled true
+//            shrinkResources true
+//            zipAlignEnabled true
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType == "release") {
+                outputFileName = "bb" + "_release_time_" + releaseTime() + ".apk"
+            }
+            if (variant.buildType == "debug") {
+                outputFileName = "bb" + "_debug_time_" + releaseTime() + ".apk"
+            }
+        }
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmmss")
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:24.2.0'
-    implementation 'com.android.support:design:24.2.0'
-    implementation 'com.android.support:recyclerview-v7:24.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$properyVersion.kotlinVersion"
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
-    //    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
-    implementation 'me.weyye.hipermission:library:1.0.8'
-    implementation('com.salton123:saltonFramework:0.1.3.3') {
-        exclude group: "com.hwangjr.rxbus"
-    }
-    implementation 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
-    implementation 'com.liulishuo.okdownload:okdownload:1.0.5'
-    implementation 'com.liulishuo.okdownload:sqlite:1.0.5'
-    implementation 'com.liulishuo.okdownload:okhttp:1.0.5'
-    implementation 'org.greenrobot:eventbus:3.1.1'
-}
-
-def getVersionCode(build) {
-    String date = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date())
-    return Integer.parseInt(date + build)
+    api project(":corelite")
 }

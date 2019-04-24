@@ -5,27 +5,27 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { setUrl("https://dl.bintray.com/456838/") }
+//        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$properyVersion.kotlinVersion"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        //发布插件
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
-//        classpath 'com.letv.sarrsdesktop:BlockCanaryExPlugin:0.9.9.5'
     }
 }
 
 allprojects {
     repositories {
         google()
-        maven { setUrl("https://dl.bintray.com/456838/saltonFramework/") }
+        jcenter()
         mavenLocal()
+        maven { url 'https://jitpack.io' }
         maven { url '../../repo' }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://jitpack.io' }//添加jitpack仓库地址
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
     configurations.all {
+//        transitive = false
         resolutionStrategy {
             force "com.android.support:support-v4:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support:support-annotations:${dependVersion.androidSupportSdkVersion}"
@@ -38,7 +38,9 @@ allprojects {
             force "com.android.support:support-core-ui:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support:support-core-utils:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support:support-fragment:${dependVersion.androidSupportSdkVersion}"
-            force "com.android.support.constraint:constraint-layout:1.0.2"
+            force "org.jetbrains.kotlin:kotlin-stdlib:${properyVersion.kotlinVersion}"
+            force "com.salton123:xlog:0.0.0.9"
+//            force "com.android.support.constraint:constraint-layout:1.0.2"
         }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="Download"
+        path="Download" />
+
+    <external-path
+        name="BmobFile"
+        path="/" />
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <external-files-path
+        name="external_files_root"
+        path="." />
+</paths>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="8.0dip">
+
+        <com.salton123.view.IconFontTextView
+            android:layout_width="42.0dip"
+            android:layout_height="26.0dip"
+            android:layout_marginRight="8.0dip"
+            android:background="@drawable/v"
+            android:paddingLeft="5.0dip"
+            android:scaleType="fitCenter"
+            android:text="@string/ks"
+            android:textColor="@color/white"
+            android:textSize="18.0dip"
+            android:visibility="gone"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="26.0dip"
+            android:layout_marginRight="8.0dip"
+            android:visibility="gone">
+
+            <com.salton123.view.IconFontTextView
+                android:layout_width="26.0dip"
+                android:layout_height="26.0dip"
+                android:scaleType="fitCenter"
+                android:text="@string/ks"
+                android:textSize="18.0dip"
+                android:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingLeft="2.0dip"
+                android:paddingRight="2.0dip"
+                android:paddingBottom="2.0dip"
+                android:textColor="@color/white"
+                android:textSize="6.0dip"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.salton123.view.IconFontTextView
+            android:layout_width="26.0dip"
+            android:layout_height="26.0dip"
+            android:layout_marginRight="8.0dip"
+            android:scaleType="fitCenter"
+            android:text="@string/ks"
+            android:textSize="18.0dip"
+            android:tint="@color/white"
+            android:visibility="gone"
+            />
+
+        <com.salton123.view.NvUrlView
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="6.0dip"
+            android:layout_marginBottom="6.0dip"
+            android:layout_weight="1.0"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30.0dip"
+            android:layout_gravity="center"
+            android:background="@drawable/af"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip"
+            android:textColor="@color/color_ccffffff"
+            android:textSize="14.0sp"
+            android:visibility="gone" />
+
+        <com.salton123.view.IconFontTextView
+            android:id="@+id/tvTitleMore"
+            android:layout_width="26.0dip"
+            android:layout_height="26.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:gravity="center"
+            android:text="@string/if_more"
+            android:textColor="@color/white"
+            android:textSize="18.0dip"
+            android:background="?android:attr/selectableItemBackground"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:paddingLeft="8.0dip"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingLeft="50.0dip"
+        android:paddingRight="50.0dip"
+        android:singleLine="true"
+        android:textColor="@color/color_ccffffff"
+        android:textSize="18.0sp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip"
+        android:layout_alignParentBottom="true"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/b5" />
+</RelativeLayout>

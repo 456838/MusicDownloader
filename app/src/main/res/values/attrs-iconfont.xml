@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconFontTextView">
+        <attr name="if_strokeWidth" format="dimension"/>
+        <attr name="if_strokeColor" format="color"/>
+        <attr name="if_fillColor" format="color"/>
+        <attr name="if_enablePressEffect" format="boolean"/>
+    </declare-styleable>
+</resources>

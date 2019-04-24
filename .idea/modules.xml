@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MusicDownloader.iml" filepath="$PROJECT_DIR$/MusicDownloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/corelite/corelite.iml" filepath="$PROJECT_DIR$/corelite/corelite.iml" />
     </modules>
   </component>
 </project>

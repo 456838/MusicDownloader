@@ -1,28 +1,40 @@
+def bakPath = "${buildDir}/bakApk/"
 ext {
     android = [
-            compileSdkVersion: 26,
-            buildToolsVersion: "26.+",
-            minSdkVersion    : 22,
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
+            minSdkVersion    : 23,
             targetSdkVersion : 28,
             versionCode      : 1,
             versionName      : "1.0"
     ]
 
+    tinker = [
+            bakPath                   : "${bakPath}",
+            tinkerEnabled             : true,       //for some reason, you may want to ignore tinkerBuild, such as instant run debug build?
+            tinkerOldApkPath          : "${bakPath}app-debug-1218-13-39-57.apk",   //for normal build old apk file to build patch apk
+            tinkerApplyMappingPath    : "${bakPath}app-debug-1018-17-32-47-mapping.txt",   //proguard mapping file to build patch apk
+            tinkerApplyResourcePath   : "${bakPath}app-debug-1218-13-39-57-R.txt",     //resource R.txt to build patch apk, must input if there is resource changed
+            tinkerBuildFlavorDirectory: "${bakPath}app-1018-17-32-47"  //only use for build all flavor, if not, just ignore this field
+    ]
+
     dependVersion = [
-            androidSupportSdkVersion: "26.0.2",
+            androidSupportSdkVersion: "28.0.0",
             retrofitSdkVersion      : "2.3.0",
             glideSdkVersion         : "4.0.0",
             rxJava                  : "2.1.5",
             rxAndroid               : "2.0.1",
-            saltonframeworkVersion  : "0.1.2.8",
+            saltonframeworkVersion  : "1.0.0.3",
             ijkplayerVersion        : "0.8.8",
-            appLanguage             : "pro-en",//# 说明：如果是相同资源放在res目录，如果是中文资源和英文资源，要分别存放在res_zh/res_en，并且不能存放同名资源在res
-            appDevelop              : true,//# 是否开发模式
-            packageType             : 1,//# 1 不打包raw 2打包raw ，用于开发过程中不打包raw下的视频资源，加快打包速度
+            appLanguage             : "en",//# 说明：如果是相同资源放在res目录，如果是中文资源和英文资源，要分别存放在res_zh/res_en，并且不能存放同名资源在res
+            appDevelop              : false,//# 是否开发模式，true会打包raw文件
+            mobKey                : "2a05290556218",
+            mobSecret                : "bb9b478f3a54493bade5c7fab965a356"
     ]
+
     properyVersion = [
             repluginVersion: "2.2.4",
-            kotlinVersion  : "1.2.30",
+            kotlinVersion  : "1.3.11",
     ]
 
     supportDeps = [
