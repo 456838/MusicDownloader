@@ -40,7 +40,8 @@ dependencies {
 //    api("com.android.support:collections:28.0.0") {
 //        transitive = false
 //    }
-//    api 'com.google.code.gson:gson:2.8.5'
+    api 'com.google.code.gson:gson:2.8.5'
+    api "com.salton123:log:1.0.0.0"
 //    api "com.squareup.okhttp3:okhttp:3.7.0"
 //    api("com.android.support:support-core-ui:28.0.0") {
 //        transitive = false
