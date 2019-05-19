@@ -2,6 +2,7 @@ package com.salton123.musicdownloader;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.salton123.base.feature.PermissionFeature;
 import com.salton123.musicdownloader.ui.fm.SearchResultFragment;
@@ -19,6 +20,7 @@ public class HomeActivity extends BookBaseActivity {
     private SearchResultFragment mCurrentSearchResultFragment;
     private int searchType;
     private String keyword;
+    private EditText etInput;
 
     @Override
     public int getLayout() {
@@ -38,6 +40,7 @@ public class HomeActivity extends BookBaseActivity {
     @Override
     public void initViewAndData() {
         setListener(R.id.tvTitleMore);
+        etInput = findViewById(R.id.etInput);
         addBrowserInstance();
     }
 
@@ -49,18 +52,12 @@ public class HomeActivity extends BookBaseActivity {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.tvTitleMore:
-                keyword = "";
+                keyword = etInput.getText().toString();
                 mCurrentSearchResultFragment.startSearch(searchType, keyword);
                 break;
             default:
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }
