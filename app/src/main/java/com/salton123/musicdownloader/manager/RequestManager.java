@@ -1,6 +1,8 @@
 package com.salton123.musicdownloader.manager;
 
 import com.salton123.log.XLog;
+import com.salton123.musicdownloader.bean.SongSearchV2;
+import com.salton123.utils.RequestUtil;
 
 /**
  * User: newSalton@outlook.com
@@ -14,11 +16,12 @@ public class RequestManager {
     /**
      * keyword search song
      */
-    public void songSearch(String keyword, int page, int pageSize) {
+    public void songSearch(String keyword, int page, int pageSize, RequestUtil.HttpResponseCallback callback) {
         String finalSearchUrl = SONG_SEARCH_V2
                 .replace("%keyword%", keyword)
                 .replace("%page%", page + "")
                 .replace("%pagesize%", pageSize + "");
         XLog.i(this, "finalSearchUrl=" + finalSearchUrl);
+        RequestUtil.get(finalSearchUrl, SongSearchV2.class, callback);
     }
 }
