@@ -11,7 +11,7 @@ android {
         versionName rootProject.ext.android.versionName
         versionCode rootProject.ext.android.versionCode as Integer
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a","x86"
         }
     }
     signingConfigs {
@@ -41,9 +41,9 @@ android {
         }
         release {
             signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -68,5 +68,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(":corelite")
     api project(":kmusic")
-    api 'com.zhy:base-rvadapter:3.0.3'
+    implementation "cn.bingoogolapple:bga-refreshlayout:1.1.8"
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.9'
 }

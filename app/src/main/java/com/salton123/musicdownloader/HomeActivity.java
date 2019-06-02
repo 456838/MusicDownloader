@@ -7,12 +7,15 @@ import android.widget.ListView;
 
 import com.salton123.app.crash.ThreadUtils;
 import com.salton123.feature.PermissionFeature;
+import com.salton123.musicdownloader.view.adapter.SearchResultAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import xyz.yhsj.kmusic.KMusic;
 import xyz.yhsj.kmusic.entity.MusicResp;
 import xyz.yhsj.kmusic.entity.Song;
@@ -26,7 +29,8 @@ import xyz.yhsj.kmusic.entity.Song;
  */
 public class HomeActivity extends BookBaseActivity {
     private EditText etInput;
-    private ListView lvSongSearch;
+    private RecyclerView recyclerView;
+    private SearchResultAdapter mAdapter;
 
     @Override
     public int getLayout() {
@@ -47,7 +51,10 @@ public class HomeActivity extends BookBaseActivity {
     public void initViewAndData() {
         setListener(R.id.tvTitleMore);
         etInput = findViewById(R.id.etInput);
-        lvSongSearch = findViewById(R.id.lvSongSearch);
+        recyclerView = findViewById(R.id.recyclerView);
+        mAdapter = new SearchResultAdapter(recyclerView);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity()));
     }
 
     @Override
@@ -65,7 +72,12 @@ public class HomeActivity extends BookBaseActivity {
                     public void onSuccess(@Nullable MusicResp<List<Song>> result) {
                         String msg = result.getMsg();
                         List<Song> lists = result.getData();
-
+                        etInput.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.addMoreData(lists);
+                            }
+                        });
                     }
                 });
 

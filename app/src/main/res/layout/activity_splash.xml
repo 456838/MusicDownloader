@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<cn.bingoogolapple.refreshlayout.BGARefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/flContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +8,11 @@
     android:orientation="vertical"
     >
 
-    <ListView
-        android:id="@+id/lvSongSearch"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+</cn.bingoogolapple.refreshlayout.BGARefreshLayout>
