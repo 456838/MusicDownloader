@@ -4,10 +4,8 @@
     android:id="@+id/llRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ali_pay_round_bg"
-    android:backgroundTint="@color/color_default_ff728ac6"
-    android:gravity="center"
-    android:orientation="vertical"
+    android:gravity="center|left"
+    android:orientation="horizontal"
     android:paddingLeft="10dp"
     android:paddingTop="10dp"
     android:paddingRight="10dp"
@@ -15,29 +13,51 @@
     >
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?android:attr/selectableItemBackground"
-        android:gravity="center"
-        android:lines="1"
-        android:text="最新合集"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:text="1"
+        android:textColor="@color/color_4caf50_material"
+        android:textSize="14sp"
         />
 
-    <TextView
-        android:id="@+id/tvSubTitle"
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/salton_load_pic"
+        />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:lines="1"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        tools:text="www.baidu.com"
-        />
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:lines="1"
+            android:text="123木头人"
+            android:textColor="#505050"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="www.baidu.com"
+            android:textColor="#808080"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>

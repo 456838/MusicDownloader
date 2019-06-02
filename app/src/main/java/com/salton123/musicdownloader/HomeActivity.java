@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.salton123.app.crash.ThreadUtils;
 import com.salton123.feature.PermissionFeature;
 import com.salton123.musicdownloader.view.adapter.SearchResultAdapter;
+import com.salton123.util.PreferencesUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,10 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 import xyz.yhsj.kmusic.KMusic;
 import xyz.yhsj.kmusic.entity.MusicResp;
 import xyz.yhsj.kmusic.entity.Song;
@@ -27,10 +32,13 @@ import xyz.yhsj.kmusic.entity.Song;
  * ModifyTime: 18:18
  * Description:
  */
-public class HomeActivity extends BookBaseActivity {
+public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
     private EditText etInput;
     private RecyclerView recyclerView;
     private SearchResultAdapter mAdapter;
+    private BGARefreshLayout mRefreshLayout;
+    private int currentPage = 1;
+    private int pageSize = 20;
 
     @Override
     public int getLayout() {
@@ -55,35 +63,75 @@ public class HomeActivity extends BookBaseActivity {
         mAdapter = new SearchResultAdapter(recyclerView);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity()));
+        String keyword = PreferencesUtils.getString(activity(), "keyword", "");
+        etInput.setText(keyword.trim());
+        mRefreshLayout = f(R.id.refreshLayout);
+        mRefreshLayout.setDelegate(this);
+        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
+        BGARefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
+        // 设置下拉刷新和上拉加载更多的风格
+        mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
+        getData(false);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvTitleMore:
-                ThreadUtils.executeByCached(new ThreadUtils.SimpleTask<MusicResp<List<Song>>>() {
-                    @NotNull
-                    @Override
-                    public MusicResp<List<Song>> doInBackground() {
-                        return KMusic.search(etInput.getText().toString().trim());
-                    }
-
-                    @Override
-                    public void onSuccess(@Nullable MusicResp<List<Song>> result) {
-                        String msg = result.getMsg();
-                        List<Song> lists = result.getData();
-                        etInput.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mAdapter.addMoreData(lists);
-                            }
-                        });
-                    }
-                });
-
+                mAdapter.clear();
+                getData(true);
                 break;
             default:
                 break;
         }
+    }
+
+    private void getData(boolean clear) {
+        String keyword = etInput.getText().toString().trim();
+        PreferencesUtils.putString(activity(), "keyword", keyword);
+        ThreadUtils.executeByCached(new ThreadUtils.SimpleTask<MusicResp<List<Song>>>() {
+            @NotNull
+            @Override
+            public MusicResp<List<Song>> doInBackground() {
+                return KMusic.search(keyword, currentPage, pageSize);
+            }
+
+            @Override
+            public void onSuccess(@Nullable MusicResp<List<Song>> result) {
+                List<Song> lists = result.getData();
+                etInput.post(() -> {
+                            mAdapter.clear();
+                            mAdapter.addMoreData(lists);
+                            mRefreshLayout.endLoadingMore();
+                        }
+                );
+            }
+        });
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        currentPage = 1;
+        mAdapter.clear();
+        getData(true);
+        mRefreshLayout.endRefreshing();
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        currentPage++;
+        getData(false);
+        mRefreshLayout.endLoadingMore();
+        return false;
+    }
+
+    // 通过代码方式控制进入正在刷新状态。应用场景：某些应用在 activity 的 onStart 方法中调用，自动进入正在刷新状态获取最新数据
+    public void beginRefreshing() {
+        mRefreshLayout.beginRefreshing();
+    }
+
+    // 通过代码方式控制进入加载更多状态
+    public void beginLoadingMore() {
+        mRefreshLayout.beginLoadingMore();
     }
 }

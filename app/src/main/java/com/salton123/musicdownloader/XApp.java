@@ -1,6 +1,6 @@
 package com.salton123.musicdownloader;
 
-import android.app.Application;
+import com.salton123.app.BaseApplication;
 
 import org.xutils.x;
 
@@ -10,7 +10,7 @@ import org.xutils.x;
  * ModifyTime: 16:11
  * Description:
  */
-public class XApp extends Application {
+public class XApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();

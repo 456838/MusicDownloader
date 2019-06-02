@@ -1,11 +1,9 @@
 package com.salton123.musicdownloader.view.adapter;
 
-import android.content.Context;
-
+import com.salton123.GlideApp;
 import com.salton123.musicdownloader.R;
 
 import androidx.recyclerview.widget.RecyclerView;
-import cn.bingoogolapple.baseadapter.BGAAdapterViewAdapter;
 import cn.bingoogolapple.baseadapter.BGARecyclerViewAdapter;
 import cn.bingoogolapple.baseadapter.BGAViewHolderHelper;
 import xyz.yhsj.kmusic.entity.Song;
@@ -24,7 +22,13 @@ public class SearchResultAdapter extends BGARecyclerViewAdapter<Song> {
     @Override
     protected void fillData(BGAViewHolderHelper helper, int position, Song model) {
         helper.setText(R.id.tvTitle, model.getTitle())
-                .setText(R.id.tvSubTitle, model.getAuthor());
+                .setText(R.id.tvSubTitle, model.getAuthor())
+                .setText(R.id.tvOrder, position + 1 + "");
+        GlideApp.with(helper.getConvertView())
+                .load(model.getPic())
+                .placeholder(R.drawable.salton_load_pic)
+                .circleCrop()
+                .into(helper.getImageView(R.id.ivIcon));
 
     }
 }
