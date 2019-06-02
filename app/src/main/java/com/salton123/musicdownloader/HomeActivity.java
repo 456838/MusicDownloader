@@ -5,9 +5,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.salton123.app.crash.ThreadUtils;
 import com.salton123.feature.PermissionFeature;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import androidx.annotation.Nullable;
 import xyz.yhsj.kmusic.KMusic;
+import xyz.yhsj.kmusic.entity.MusicResp;
+import xyz.yhsj.kmusic.entity.Song;
 
 
 /**
@@ -46,7 +54,21 @@ public class HomeActivity extends BookBaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvTitleMore:
-                KMusic.search()
+                ThreadUtils.executeByCached(new ThreadUtils.SimpleTask<MusicResp<List<Song>>>() {
+                    @NotNull
+                    @Override
+                    public MusicResp<List<Song>> doInBackground() {
+                        return KMusic.search(etInput.getText().toString().trim());
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable MusicResp<List<Song>> result) {
+                        String msg = result.getMsg();
+                        List<Song> lists = result.getData();
+
+                    }
+                });
+
                 break;
             default:
                 break;

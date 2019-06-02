@@ -15,6 +15,7 @@ object KMusic {
      * 搜索歌曲.默认在QQ音乐搜索
      */
     @JvmStatic
+    @JvmOverloads
     fun search(key: String, page: Int = 1, num: Int = 10, site: MusicSite = MusicSite.QQ) = when (site) {
         MusicSite.BAIDU -> BaiduImpl
         MusicSite.QQ -> QQImpl
