@@ -2,11 +2,14 @@ package com.salton123.musicdownloader;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.salton123.app.crash.ThreadUtils;
 import com.salton123.feature.PermissionFeature;
+import com.salton123.musicdownloader.manager.DownloadHelper;
 import com.salton123.musicdownloader.view.adapter.SearchResultAdapter;
 import com.salton123.util.PreferencesUtils;
 
@@ -17,6 +20,7 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
@@ -67,11 +71,20 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
         etInput.setText(keyword.trim());
         mRefreshLayout = f(R.id.refreshLayout);
         mRefreshLayout.setDelegate(this);
+        // BGAStickinessRefreshViewHolder stickinessRefreshViewHolder = new BGAStickinessRefreshViewHolder(activity(), true);
+        // stickinessRefreshViewHolder.setStickinessColor(R.color.colorPrimary);
+        // stickinessRefreshViewHolder.setRotateImage(R.drawable.a);
+        // mRefreshLayout.setRefreshViewHolder(stickinessRefreshViewHolder);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
         BGARefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, true);
         // 设置下拉刷新和上拉加载更多的风格
         mRefreshLayout.setRefreshViewHolder(refreshViewHolder);
         getData(false);
+        mAdapter.setOnRVItemClickListener((parent, itemView, position) -> {
+            Song song = mAdapter.getItem(position);
+            DownloadHelper.systemDownload(song);
+            longToast("开始下载" + song.getAuthor() + "的" + song.getTitle());
+        });
     }
 
     @Override
@@ -100,9 +113,10 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
             public void onSuccess(@Nullable MusicResp<List<Song>> result) {
                 List<Song> lists = result.getData();
                 etInput.post(() -> {
-                            mAdapter.clear();
+                            if (clear) {
+                                mAdapter.clear();
+                            }
                             mAdapter.addMoreData(lists);
-                            mRefreshLayout.endLoadingMore();
                         }
                 );
             }
@@ -121,7 +135,6 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         currentPage++;
         getData(false);
-        mRefreshLayout.endLoadingMore();
         return false;
     }
 
