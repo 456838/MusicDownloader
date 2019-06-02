@@ -9,9 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridView;
 
-import com.salton123.base.BaseDialogFragment;
 import com.salton123.musicdownloader.R;
-import com.salton123.musicdownloader.bean.GridMenuItem;
+import com.salton123.ui.base.BaseDialogFragment;
 import com.salton123.util.ScreenUtils;
 import com.salton123.view.adapter.MenuGridAdapter;
 
@@ -40,19 +39,19 @@ public class MenuPopupComp extends BaseDialogFragment {
     public void initViewAndData() {
         gvMenu = f(R.id.gvMenu);
         mMenuGridAdapter = new MenuGridAdapter(activity());
-        gvMenu.setAdapter(mMenuGridAdapter);
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // gvMenu.setAdapter(mMenuGridAdapter);
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("历史", getString(R.string.if_retangel)));
         mMenuGridAdapter.notifyDataSetChanged();
     }
 

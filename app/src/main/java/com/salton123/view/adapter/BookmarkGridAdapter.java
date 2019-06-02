@@ -3,14 +3,14 @@ package com.salton123.view.adapter;
 import android.content.Context;
 import android.content.res.ColorStateList;
 
-import com.salton123.adapter.abslistview.CommonAdapter;
-import com.salton123.adapter.abslistview.ViewHolder;
 import com.salton123.musicdownloader.R;
 import com.salton123.musicdownloader.bean.GridBookmarkItem;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 public class BookmarkGridAdapter extends CommonAdapter<GridBookmarkItem> {
     public BookmarkGridAdapter(Context context) {
-        super(context, R.layout.adapter_item_bookmark_grid);
+        super(context, R.layout.adapter_item_bookmark_grid, null);
     }
 
     @Override

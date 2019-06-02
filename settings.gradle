@@ -1,1 +1,1 @@
-include ':app', ':corelite'
+include ':app', ':corelite', ':kmusic'

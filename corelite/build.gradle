@@ -19,31 +19,13 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'org.greenrobot:eventbus:3.1.1'
-//    api('me.everything:overscroll-decor-android:1.0.4') {
-//        transitive = false
-//    }
-//    api 'com.facebook.rebound:rebound:0.3.8'
-//    api("com.android.support:recyclerview-v7:28.0.0") {
-//        transitive = false
-//    }
-//    api("com.android.support:support-annotations:28.0.0") {
-//        transitive = false
-//    }
-//    api("com.android.support:support-compat:28.0.0") {
-//        transitive = false
-//    }
-//    api("com.android.support:support-core-utils:28.0.0") {
-//        transitive = false
-//    }
-//    api("com.android.support:collections:28.0.0") {
-//        transitive = false
-//    }
-    api 'com.google.code.gson:gson:2.8.5'
-    api "com.salton123:log:1.0.0.0"
-//    api "com.squareup.okhttp3:okhttp:3.7.0"
-//    api("com.android.support:support-core-ui:28.0.0") {
-//        transitive = false
-//    }
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api 'com.salton123:saltonFramework:1.1.0.4'
+    api "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.properyVersion.kotlinVersion}"
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api 'com.squareup.okhttp3:okhttp:3.12.0'
+    api 'io.reactivex.rxjava2:rxjava:2.2.4'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.0'
 }

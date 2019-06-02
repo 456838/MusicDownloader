@@ -1,74 +1,26 @@
-def bakPath = "${buildDir}/bakApk/"
 ext {
     android = [
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
             minSdkVersion    : 23,
             targetSdkVersion : 28,
-            versionCode      : 1,
-            versionName      : "1.0"
-    ]
-
-    tinker = [
-            bakPath                   : "${bakPath}",
-            tinkerEnabled             : true,       //for some reason, you may want to ignore tinkerBuild, such as instant run debug build?
-            tinkerOldApkPath          : "${bakPath}app-debug-1218-13-39-57.apk",   //for normal build old apk file to build patch apk
-            tinkerApplyMappingPath    : "${bakPath}app-debug-1018-17-32-47-mapping.txt",   //proguard mapping file to build patch apk
-            tinkerApplyResourcePath   : "${bakPath}app-debug-1218-13-39-57-R.txt",     //resource R.txt to build patch apk, must input if there is resource changed
-            tinkerBuildFlavorDirectory: "${bakPath}app-1018-17-32-47"  //only use for build all flavor, if not, just ignore this field
+            versionCode      : 3,
+            versionName      : "3.0",
+            channel          : "game",
+            applicationId    : "com.salton123.music",
     ]
 
     dependVersion = [
-            androidSupportSdkVersion: "28.0.0",
-            retrofitSdkVersion      : "2.3.0",
-            glideSdkVersion         : "4.0.0",
-            rxJava                  : "2.1.5",
-            rxAndroid               : "2.0.1",
-            saltonframeworkVersion  : "1.0.0.3",
-            ijkplayerVersion        : "0.8.8",
-            appLanguage             : "en",//# 说明：如果是相同资源放在res目录，如果是中文资源和英文资源，要分别存放在res_zh/res_en，并且不能存放同名资源在res
-            appDevelop              : false,//# 是否开发模式，true会打包raw文件
-            mobKey                : "2a05290556218",
-            mobSecret                : "bb9b478f3a54493bade5c7fab965a356"
+            appLanguage    : "en",//# 说明：如果是相同资源放在res目录，如果是中文资源和英文资源，要分别存放在res_zh/res_en，并且不能存放同名资源在res
+            appDevelop     : true,//# 是否开发模式，true会打包raw文件
+            phoneModelLimit: true,//是否开启机型限制
+            mobKey         : "2a05290556218",
+            mobSecret      : "bb9b478f3a54493bade5c7fab965a356",
+            bmobKey      : "1f79783bee53925abab29c40226175e8",
     ]
 
     properyVersion = [
-            repluginVersion: "2.2.4",
-            kotlinVersion  : "1.3.11",
+            androidSupportSdkVersion: "28.0.0",
+            kotlinVersion           : "+",
     ]
-
-    supportDeps = [
-            //--------  support  -------
-            supportv4  : "com.android.support:support-v4:$dependVersion.androidSupportSdkVersion",
-            appcompatv7: "com.android.support:appcompat-v7:$dependVersion.androidSupportSdkVersion",
-            cardview   : "com.android.support:cardview-v7:$dependVersion.androidSupportSdkVersion",
-            design     : "com.android.support:design:$dependVersion.androidSupportSdkVersion",
-            annotations: "com.android.support:support-annotations:$dependVersion.androidSupportSdkVersion"
-    ]
-    retrofit = [
-            //------ retrofit和RxJava ---------
-            retrofit                : "com.squareup.retrofit2:retrofit:$dependVersion.retrofitSdkVersion",
-            retrofitConverterGson   : "com.squareup.retrofit2:converter-gson:$dependVersion.retrofitSdkVersion",
-            retrofitAdapterRxjava2  : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofitSdkVersion",
-            okhttp3LoggerInterceptor: 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    ]
-
-    rxJava = [
-            rxJava   : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
-            rxAndroid: "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid"
-    ]
-
-
-    glide = "com.github.bumptech.glide:glide:$dependVersion.glideSdkVersion"
-    glideCompiler = "com.github.bumptech.glide:compiler:$dependVersion.glideSdkVersion"
-    glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$dependVersion.glideSdkVersion"
-
-
-    supportLibs = supportDeps.values()
-    networkLibs = retrofit.values()
-    rxJavaLibs = rxJava.values()
-    otherLibs = [glide]
-
-    // APT
-    annotationProcessorLibs = [glideCompiler]
 }

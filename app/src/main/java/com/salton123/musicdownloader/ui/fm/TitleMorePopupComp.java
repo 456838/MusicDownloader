@@ -9,9 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.GridView;
 
-import com.salton123.base.BaseDialogFragment;
 import com.salton123.musicdownloader.R;
 import com.salton123.musicdownloader.bean.GridMenuItem;
+import com.salton123.ui.base.BaseDialogFragment;
 import com.salton123.util.ScreenUtils;
 import com.salton123.view.adapter.TitleMoreGridAdapter;
 
@@ -41,12 +41,12 @@ public class TitleMorePopupComp extends BaseDialogFragment {
     public void initViewAndData() {
         gvMenu = f(R.id.gvMenu);
         mMenuGridAdapter = new TitleMoreGridAdapter(activity());
-        gvMenu.setAdapter(mMenuGridAdapter);
-        mMenuGridAdapter.add(new GridMenuItem("扫码", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("分享", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("阅读模式", getString(R.string.if_retangel)));
-        mMenuGridAdapter.add(new GridMenuItem("看图模式", getString(R.string.if_retangel)));
-        mMenuGridAdapter.notifyDataSetChanged();
+        // gvMenu.setAdapter(mMenuGridAdapter);
+        // mMenuGridAdapter.add(new GridMenuItem("扫码", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("分享", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("阅读模式", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.add(new GridMenuItem("看图模式", getString(R.string.if_retangel)));
+        // mMenuGridAdapter.notifyDataSetChanged();
     }
 
     @Override

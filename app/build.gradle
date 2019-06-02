@@ -67,4 +67,6 @@ def releaseTime() {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(":corelite")
+    api project(":kmusic")
+    api 'com.zhy:base-rvadapter:3.0.3'
 }

@@ -5,11 +5,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-//        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$properyVersion.kotlinVersion"
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
     }
 }
 
@@ -18,11 +18,14 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-        maven { url 'https://jitpack.io' }
-        maven { url '../../repo' }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url 'https://jitpack.io' }//添加jitpack仓库地址
-        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        maven {
+            credentials {
+                username '6XCT1E'
+                password 'XldVM4G6IO'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/43441-release-5ZHLZs/'
+        }
     }
     configurations.all {
 //        transitive = false
@@ -39,8 +42,6 @@ allprojects {
             force "com.android.support:support-core-utils:${dependVersion.androidSupportSdkVersion}"
             force "com.android.support:support-fragment:${dependVersion.androidSupportSdkVersion}"
             force "org.jetbrains.kotlin:kotlin-stdlib:${properyVersion.kotlinVersion}"
-            force "com.salton123:xlog:0.0.0.9"
-//            force "com.android.support.constraint:constraint-layout:1.0.2"
         }
     }
 }

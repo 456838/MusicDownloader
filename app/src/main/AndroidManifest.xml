@@ -46,7 +46,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:launchMode="singleTask"
-            android:theme="@style/SplashTheme"
+            android:theme="@style/EmuiAppTheme"
             android:windowSoftInputMode="adjustResize|stateHidden"
             >
             <intent-filter>

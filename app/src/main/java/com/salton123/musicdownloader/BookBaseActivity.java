@@ -3,8 +3,8 @@ package com.salton123.musicdownloader;
 import android.os.Bundle;
 
 import com.gyf.barlibrary.BarHide;
-import com.salton123.base.BaseActivity;
-import com.salton123.base.feature.ImmersionFeature;
+import com.salton123.feature.ImmersionFeature;
+import com.salton123.ui.base.BaseActivity;
 
 /**
  * User: newSalton@outlook.com

@@ -3,8 +3,11 @@ package com.salton123.musicdownloader;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
-import com.salton123.base.feature.PermissionFeature;
+import com.salton123.feature.PermissionFeature;
+
+import xyz.yhsj.kmusic.KMusic;
 
 
 /**
@@ -15,6 +18,7 @@ import com.salton123.base.feature.PermissionFeature;
  */
 public class HomeActivity extends BookBaseActivity {
     private EditText etInput;
+    private ListView lvSongSearch;
 
     @Override
     public int getLayout() {
@@ -35,12 +39,14 @@ public class HomeActivity extends BookBaseActivity {
     public void initViewAndData() {
         setListener(R.id.tvTitleMore);
         etInput = findViewById(R.id.etInput);
+        lvSongSearch = findViewById(R.id.lvSongSearch);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvTitleMore:
+                KMusic.search()
                 break;
             default:
                 break;

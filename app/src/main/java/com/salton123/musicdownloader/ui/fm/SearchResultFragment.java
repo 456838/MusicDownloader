@@ -2,8 +2,8 @@ package com.salton123.musicdownloader.ui.fm;
 
 import android.os.Bundle;
 
-import com.salton123.base.BaseFragment;
 import com.salton123.musicdownloader.R;
+import com.salton123.ui.base.BaseFragment;
 
 /**
  * User: newSalton@outlook.com
