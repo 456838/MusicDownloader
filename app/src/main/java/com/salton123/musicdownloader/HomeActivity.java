@@ -3,6 +3,7 @@ package com.salton123.musicdownloader;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -167,5 +168,15 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
             mDialog.dismiss();
             mDialog = null;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_ENTER:
+                getData(true);
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
