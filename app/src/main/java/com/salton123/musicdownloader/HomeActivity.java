@@ -1,11 +1,10 @@
 package com.salton123.musicdownloader;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.salton123.app.crash.ThreadUtils;
 import com.salton123.feature.PermissionFeature;
@@ -18,13 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import cn.bingoogolapple.baseadapter.BGAOnRVItemClickListener;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGAStickinessRefreshViewHolder;
 import xyz.yhsj.kmusic.KMusic;
 import xyz.yhsj.kmusic.entity.MusicResp;
 import xyz.yhsj.kmusic.entity.Song;
@@ -43,6 +41,7 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
     private BGARefreshLayout mRefreshLayout;
     private int currentPage = 1;
     private int pageSize = 20;
+    private Dialog mDialog;
 
     @Override
     public int getLayout() {
@@ -82,8 +81,22 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
         getData(false);
         mAdapter.setOnRVItemClickListener((parent, itemView, position) -> {
             Song song = mAdapter.getItem(position);
-            DownloadHelper.systemDownload(song);
-            longToast("开始下载" + song.getAuthor() + "的" + song.getTitle());
+            mDialog = new AlertDialog.Builder(activity())
+                    .setTitle("音乐下载")
+                    .setMessage("确认开始下载" + song.getAuthor() + "的" + song.getTitle() + "？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DownloadHelper.systemDownload(song);
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            mDialog.show();
         });
     }
 
@@ -126,7 +139,6 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         currentPage = 1;
-        mAdapter.clear();
         getData(true);
         mRefreshLayout.endRefreshing();
     }
@@ -146,5 +158,14 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
     // 通过代码方式控制进入加载更多状态
     public void beginLoadingMore() {
         mRefreshLayout.beginLoadingMore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
     }
 }

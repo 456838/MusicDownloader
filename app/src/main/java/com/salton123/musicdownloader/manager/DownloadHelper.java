@@ -24,7 +24,7 @@ public class DownloadHelper {
         Uri uri = Uri.parse(song.getUrl());
         DownloadManager.Request request = new DownloadManager.Request(uri);
         // 设置下载路径和文件名
-        request.setDestinationInExternalPublicDir("download", "" + song.getTitle() + "_" + song.getAuthor());
+        request.setDestinationInExternalPublicDir("download", "" + song.getTitle() + "_" + song.getAuthor()+".mp3");
         request.setDescription("歌曲：" + song.getTitle() + " 歌手：" + song.getAuthor());
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setMimeType("audio/*");
