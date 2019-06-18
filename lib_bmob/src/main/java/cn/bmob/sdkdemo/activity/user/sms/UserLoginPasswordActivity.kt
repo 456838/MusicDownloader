@@ -6,9 +6,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import cn.bmob.sdkdemo.R
-import cn.bmob.sdkdemo.bean.User
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.SaveListener
+import com.salton123.bmob.helper.BmobHelper
 import com.salton123.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_user_login_password.*
 
@@ -41,19 +39,13 @@ class UserLoginPasswordActivity : BaseActivity() {
                     Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show()
                     return
                 }
-                val user = User()
-                user.username = username
-                user.setPassword(password)
-                user.login(object : SaveListener<User>() {
-                    override fun done(user: User, e: BmobException?) {
-                        if (e == null) {
-                            tv_info!!.append("登录成功：" + user.objectId)
+                BmobHelper.login(username, password)
+                        .subscribe({
+                            tv_info!!.append("登录成功：" + it.objectId)
                             startActivity(Intent(this@UserLoginPasswordActivity, UserMainActivity::class.java))
-                        } else {
-                            tv_info!!.append("登录失败：" + e.message)
-                        }
-                    }
-                })
+                        }, {
+                            tv_info!!.append("登录失败：" + it.message)
+                        }, {})
             }
         }
     }

@@ -88,7 +88,27 @@ public class BmobHelper {
                 });
             }
         });
+    }
 
+    public static Observable<User> signUp(final String username, final String password) {
+        return Observable.create(new ObservableOnSubscribe<User>() {
+            @Override
+            public void subscribe(final ObservableEmitter emitter) throws Exception {
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(password);
+                user.signUp(new SaveListener<User>() {
+                    @Override
+                    public void done(User user, BmobException e) {
+                        if (e == null) {
+                            emitter.onNext(user);
+                        } else {
+                            emitter.onError(e);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public static Observable<List<BmobFile>> uploadBatch(
