@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion "${rootProject.ext.android.compileSdkVersion}" as Integer
+    buildToolsVersion "${rootProject.ext.android.buildToolsVersion}"
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion as Integer
+        targetSdkVersion rootProject.ext.android.targetSdkVersion as Integer
+        versionName rootProject.ext.android.versionName
+        versionCode rootProject.ext.android.versionCode as Integer
+        buildConfigField "String", "BMOB_KEY", "\"${rootProject.ext.dependVersion.bmobKey}\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(":corelite")
+    api 'com.google.android.material:material:1.0.0'
+}

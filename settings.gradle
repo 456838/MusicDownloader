@@ -1,1 +1,1 @@
-include ':app', ':corelite', ':kmusic'
+include ':app', ':corelite', ':kmusic', ':lib_bmob'

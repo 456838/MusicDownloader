@@ -150,6 +150,6 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0-rc01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-viewmodel:2.0.0-rc01@aar" level="project" />
     <orderEntry type="module" module-name="kmusic" />
-    <orderEntry type="module" module-name="MusicDownloader-corelite" />
+    <orderEntry type="module" module-name="corelite" />
   </component>
 </module>

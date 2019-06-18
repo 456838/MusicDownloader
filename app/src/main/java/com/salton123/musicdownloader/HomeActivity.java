@@ -3,6 +3,7 @@ package com.salton123.musicdownloader;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -99,6 +100,7 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
                     .create();
             mDialog.show();
         });
+        Debug.stopMethodTracing();
     }
 
     @Override

@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/corelite" />
             <option value="$PROJECT_DIR$/kmusic" />
+            <option value="$PROJECT_DIR$/lib_bmob" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

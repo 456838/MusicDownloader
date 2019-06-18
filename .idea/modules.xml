@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/corelite/corelite.iml" filepath="$PROJECT_DIR$/corelite/corelite.iml" />
       <module fileurl="file://$PROJECT_DIR$/kmusic/kmusic.iml" filepath="$PROJECT_DIR$/kmusic/kmusic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_bmob/lib_bmob.iml" filepath="$PROJECT_DIR$/lib_bmob/lib_bmob.iml" />
     </modules>
   </component>
 </project>

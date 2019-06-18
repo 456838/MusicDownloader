@@ -1,8 +1,8 @@
 package com.salton123.musicdownloader;
 
-import com.salton123.app.BaseApplication;
+import android.os.Debug;
 
-import org.xutils.x;
+import com.salton123.app.BaseApplication;
 
 /**
  * User: newSalton@outlook.com
@@ -13,7 +13,7 @@ import org.xutils.x;
 public class XApp extends BaseApplication {
     @Override
     public void onCreate() {
+        Debug.startMethodTracing("/sdcard/183/debug.trace");
         super.onCreate();
-        x.Ext.init(this);
     }
 }
