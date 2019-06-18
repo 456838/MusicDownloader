@@ -39,7 +39,7 @@
         android:name="com.salton123.musicdownloader.XApp"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/EmuiAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.salton123.musicdownloader.HomeActivity"

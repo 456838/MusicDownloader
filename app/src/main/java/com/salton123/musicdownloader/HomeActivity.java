@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.salton123.app.crash.ThreadUtils;
+import com.salton123.bmob.biz.music.MusicBean;
 import com.salton123.feature.PermissionFeature;
 import com.salton123.musicdownloader.manager.DownloadHelper;
 import com.salton123.musicdownloader.view.adapter.SearchResultAdapter;
@@ -25,6 +26,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
+import cn.bmob.sdkdemo.activity.user.sms.UserLoginPasswordActivity;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import io.reactivex.Observable;
 import xyz.yhsj.kmusic.KMusic;
 import xyz.yhsj.kmusic.entity.MusicResp;
 import xyz.yhsj.kmusic.entity.Song;
@@ -62,7 +68,7 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
 
     @Override
     public void initViewAndData() {
-        setListener(R.id.tvTitleMore);
+        setListener(R.id.tvTitleMore, R.id.tvLogin);
         etInput = findViewById(R.id.etInput);
         recyclerView = findViewById(R.id.recyclerView);
         mAdapter = new SearchResultAdapter(recyclerView);
@@ -89,6 +95,11 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            if (BmobUser.isLogin()) {
+                                save(song);
+                            } else {
+                                longToast("登录后可同步下载记录");
+                            }
                             DownloadHelper.systemDownload(song);
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -109,6 +120,9 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
             case R.id.tvTitleMore:
                 mAdapter.clear();
                 getData(true);
+                break;
+            case R.id.tvLogin:
+                openActivity(UserLoginPasswordActivity.class);
                 break;
             default:
                 break;
@@ -180,5 +194,26 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
                 break;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static void save(Song song) {
+        MusicBean bean = new MusicBean();
+        bean.setAlbumName(song.getAlbumName());
+        bean.setAuthor(song.getAuthor());
+        bean.setCode(song.getCode());
+        bean.setLink(song.getLink());
+        bean.setLrc(song.getLrc());
+        bean.setPic(song.getPic());
+        bean.setMsg(song.getMsg());
+        bean.setSite(song.getSite());
+        bean.setTitle(song.getTitle());
+        bean.setUrl(song.getUrl());
+        bean.setSongid(song.getSongid());
+        bean.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+
+            }
+        });
     }
 }

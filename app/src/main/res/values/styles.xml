@@ -1,45 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- Base application theme. -->
-    <style name="EmuiAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-    </style>
-
-    <style name="AnimationActivity" parent="@android:style/Animation">　
-        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
-        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
-        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
-        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
-    </style>
-
     <style name="AppThemeSplash" parent="EmuiAppTheme">
         <item name="android:windowBackground">@drawable/layer_windows_background</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
-    </style>
-
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:scrollbarSize">4.0dip</item>
-        <item name="android:scrollbarThumbHorizontal">@drawable/scrollbar_thumb</item>
-        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_thumb</item>
-        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
-        <item name="android:listSelector">@color/color_00ffffff</item>
-    </style>
-
-    <style name="SplashTheme" parent="@style/AppTheme">
-        <item name="android:windowBackground">@drawable/windows_background</item>
-        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="WindowAnimationStyle" parent="@android:style/Animation.Activity">
@@ -52,11 +15,6 @@
     <style name="slide_popup_ani">
         <item name="android:windowEnterAnimation">@anim/fragment_slide_up</item>
         <item name="android:windowExitAnimation">@anim/fragment_slide_down</item>
-    </style>
-
-    <style name="GeneralDialog" parent="android:style/Theme.Holo.Light.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

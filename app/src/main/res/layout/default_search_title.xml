@@ -16,6 +16,19 @@
         android:orientation="horizontal"
         android:paddingLeft="8.0dip">
 
+        <com.salton123.view.IconFontTextView
+            android:id="@+id/tvLogin"
+            android:layout_width="26.0dip"
+            android:layout_height="26.0dip"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/if_user"
+            android:textColor="@color/white"
+            android:textSize="18.0dip"
+            />
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="30dp"

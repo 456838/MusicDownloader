@@ -1,6 +1,7 @@
 package com.salton123.bmob.helper;
 
 
+import com.salton123.bmob.biz.music.MusicBean;
 import com.salton123.log.XLog;
 
 import java.io.File;
@@ -172,4 +173,6 @@ public class BmobHelper {
             }
         });
     }
+
+
 }
