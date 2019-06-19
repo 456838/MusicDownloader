@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobInstallationManager
 import cn.bmob.v3.InstallationListener
 import cn.bmob.v3.exception.BmobException
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_installation.*
 
 /**
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_installation.*
  *
  * @author zhangchaozhou
  */
-class InstallationActivity : BaseActivity() {
+class InstallationActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

@@ -10,7 +10,7 @@ import cn.bmob.sdkdemo.R
 import cn.bmob.v3.update.BmobUpdateAgent
 import cn.bmob.v3.update.UpdateStatus
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_app_version_update.*
 import java.util.*
 
@@ -19,7 +19,7 @@ import java.util.*
  *
  * @author zhangchaozhou
  */
-class AppVersionUpdateActivity : BaseActivity() {
+class AppVersionUpdateActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

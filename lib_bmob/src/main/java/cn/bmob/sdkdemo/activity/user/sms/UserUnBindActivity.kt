@@ -11,7 +11,7 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.UpdateListener
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_unbind.*
 
 /**
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_user_unbind.*
  *
  * @author zhangchaozhou
  */
-class UserUnBindActivity : BaseActivity() {
+class UserUnBindActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

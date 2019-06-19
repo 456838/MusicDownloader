@@ -6,14 +6,14 @@ import android.view.View
 import cn.bmob.sdkdemo.R
 import cn.bmob.sdkdemo.activity.security.acl.AclActivity
 import cn.bmob.sdkdemo.activity.security.role.BmobRoleActivity
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  * Created on 2018/12/5 15:59
  *
  * @author zhangchaozhou
  */
-class SecurityActivity : BaseActivity() {
+class SecurityActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

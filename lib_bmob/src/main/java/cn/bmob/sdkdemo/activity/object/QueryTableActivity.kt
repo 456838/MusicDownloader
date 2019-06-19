@@ -7,7 +7,7 @@ import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_query_table.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,7 +17,7 @@ import org.json.JSONObject
  *
  * @author zhangchaozhou
  */
-class QueryTableActivity : BaseActivity() {
+class QueryTableActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

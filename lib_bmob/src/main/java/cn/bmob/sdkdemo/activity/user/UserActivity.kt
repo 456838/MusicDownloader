@@ -8,14 +8,14 @@ import cn.bmob.sdkdemo.activity.user.email.UserEmailActivity
 import cn.bmob.sdkdemo.activity.user.normal.UserNormalActivity
 import cn.bmob.sdkdemo.activity.user.sms.UserMainActivity
 import cn.bmob.sdkdemo.activity.user.third.UserThirdActivity
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  *
  * 用户管理
  * @author zhangchaozhou
  */
-class UserActivity : BaseActivity() {
+class UserActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

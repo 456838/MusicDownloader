@@ -10,9 +10,11 @@ import android.widget.EditText;
 
 import com.salton123.app.crash.ThreadUtils;
 import com.salton123.bmob.biz.music.MusicBean;
+import com.salton123.feature.ImmersionFeature;
 import com.salton123.feature.PermissionFeature;
 import com.salton123.musicdownloader.manager.DownloadHelper;
 import com.salton123.musicdownloader.view.adapter.SearchResultAdapter;
+import com.salton123.ui.base.BaseActivity;
 import com.salton123.util.PreferencesUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +32,6 @@ import cn.bmob.sdkdemo.activity.user.sms.UserLoginPasswordActivity;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import io.reactivex.Observable;
 import xyz.yhsj.kmusic.KMusic;
 import xyz.yhsj.kmusic.entity.MusicResp;
 import xyz.yhsj.kmusic.entity.Song;
@@ -42,7 +43,7 @@ import xyz.yhsj.kmusic.entity.Song;
  * ModifyTime: 18:18
  * Description:
  */
-public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class HomeActivity extends BaseActivity implements BGARefreshLayout.BGARefreshLayoutDelegate {
     private EditText etInput;
     private RecyclerView recyclerView;
     private SearchResultAdapter mAdapter;
@@ -64,6 +65,12 @@ public class HomeActivity extends BookBaseActivity implements BGARefreshLayout.B
     @Override
     public void initVariable(Bundle savedInstanceState) {
         addFeature(new PermissionFeature(this));
+        ImmersionFeature mImmersionFeature = new ImmersionFeature(this);
+        mImmersionFeature.getImmersionBar()
+                // .hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
+                .statusBarDarkFont(true)
+                .statusBarColor(R.color.color_default_ff728ac6);
+        addFeature(mImmersionFeature);
     }
 
     @Override

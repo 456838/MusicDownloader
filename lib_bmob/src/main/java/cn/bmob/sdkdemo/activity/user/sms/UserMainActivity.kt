@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.View
 import cn.bmob.sdkdemo.R
 import cn.bmob.v3.BmobUser
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  * Created on 18/9/26 09:52
  * TODO 用户登录后首页
  * @author zhangchaozhou
  */
-class UserMainActivity : BaseActivity() {
+class UserMainActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

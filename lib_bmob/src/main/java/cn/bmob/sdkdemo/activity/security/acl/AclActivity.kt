@@ -10,7 +10,7 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_acl.*
 
 /**
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_acl.*
  *
  * @author zhangchaozhou
  */
-class AclActivity : BaseActivity() {
+class AclActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

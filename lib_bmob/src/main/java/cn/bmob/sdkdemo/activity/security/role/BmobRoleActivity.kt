@@ -13,7 +13,7 @@ import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_role.*
 
 /**
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_role.*
  *
  * @author zhangchaozhou
  */
-class BmobRoleActivity : BaseActivity() {
+class BmobRoleActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

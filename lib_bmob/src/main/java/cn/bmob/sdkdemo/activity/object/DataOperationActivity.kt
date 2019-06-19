@@ -4,14 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import cn.bmob.sdkdemo.R
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  * Created on 2018/12/5 14:51
  *
  * @author zhangchaozhou
  */
-class DataOperationActivity : BaseActivity() {
+class DataOperationActivity : BaseTitleActivity() {
     override fun initViewAndData() {
         setListener(R.id.btn_single_curd, R.id.btn_multi_crud, R.id.btn_where, R.id.btn_regex, R.id.btn_statistics, R.id.btn_bql, R.id.btn_table, R.id.btn_cache)
     }

@@ -17,7 +17,7 @@ import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_pointer.*
 
 /**
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_pointer.*
  *
  * @author zhangchaozhou
  */
-class PostsActivity : BaseActivity() {
+class PostsActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

@@ -20,7 +20,7 @@ import cn.bmob.sdkdemo.activity.sms.SmsActivity
 import cn.bmob.sdkdemo.activity.table.TableActivity
 import cn.bmob.sdkdemo.activity.update.AppVersionUpdateActivity
 import cn.bmob.sdkdemo.activity.user.UserActivity
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  * User: newSalton@outlook.com
@@ -28,7 +28,7 @@ import com.salton123.ui.base.BaseActivity
  * ModifyTime: 22:07
  * Description:
  */
-class BmobMainActivity : BaseActivity() {
+class BmobMainActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

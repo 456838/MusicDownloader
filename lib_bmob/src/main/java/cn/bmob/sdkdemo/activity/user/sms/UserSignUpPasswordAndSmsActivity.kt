@@ -12,7 +12,7 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_signup_password_and_sms.*
 
 /**
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_user_signup_password_and_sms.*
  * TODO 通过密码注册并通过短信验证绑定手机号码
  * @author zhangchaozhou
  */
-class UserSignUpPasswordAndSmsActivity : BaseActivity() {
+class UserSignUpPasswordAndSmsActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

@@ -9,7 +9,7 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_third.*
 import org.json.JSONObject
 
@@ -18,7 +18,7 @@ import org.json.JSONObject
  *
  * @author zhangchaozhou
  */
-class UserThirdActivity : BaseActivity() {
+class UserThirdActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

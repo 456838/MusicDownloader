@@ -16,7 +16,7 @@ import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 
 /**
  * Created on 2018/11/27 16:11
@@ -24,7 +24,7 @@ import com.salton123.ui.base.BaseActivity
  *
  * @author zhangchaozhou
  */
-class UserNormalActivity : BaseActivity() {
+class UserNormalActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

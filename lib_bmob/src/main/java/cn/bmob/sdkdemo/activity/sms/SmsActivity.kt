@@ -13,7 +13,7 @@ import cn.bmob.v3.InstallationListener
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.UpdateListener
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_sms.*
 
 /**
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_sms.*
  *
  * @author zhangchaozhou
  */
-class SmsActivity : BaseActivity() {
+class SmsActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

@@ -9,7 +9,7 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.ValueEventListener
 import com.google.gson.Gson
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_realtime_data.*
 import org.json.JSONObject
 
@@ -18,7 +18,7 @@ import org.json.JSONObject
  *
  * @author zhangchaozhou
  */
-class RealTimeDataActivity : BaseActivity() {
+class RealTimeDataActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

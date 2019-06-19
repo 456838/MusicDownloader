@@ -12,7 +12,7 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.LogInListener
 import cn.bmob.v3.listener.QueryListener
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_login_sms.*
 
 /**
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_user_login_sms.*
  *
  * @author zhangchaozhou
  */
-class UserLoginSmsActivity : BaseActivity() {
+class UserLoginSmsActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

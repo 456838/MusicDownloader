@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="actionBarHeight" type="dimen">56dp</item>
-    <item name="statusBarHeight" type="dimen">40dp</item>
-    <item name="immersionBarHeight" type="dimen">96dp</item>
     <dimen name="bottom_height">48dp</dimen>
 </resources>

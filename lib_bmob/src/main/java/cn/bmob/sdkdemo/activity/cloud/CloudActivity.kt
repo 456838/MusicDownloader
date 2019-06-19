@@ -7,7 +7,7 @@ import cn.bmob.v3.AsyncCustomEndpoints
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.CloudCodeListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_cloud.*
 import org.json.JSONObject
 
@@ -17,7 +17,7 @@ import org.json.JSONObject
  *
  * @author zhangchaozhou
  */
-class CloudActivity : BaseActivity() {
+class CloudActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

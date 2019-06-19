@@ -29,7 +29,7 @@ import cn.bmob.v3.listener.UpdateListener
 import cn.bmob.v3.listener.UploadBatchListener
 import cn.bmob.v3.listener.UploadFileListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_file_manager.*
 import java.io.File
 import java.util.*
@@ -43,7 +43,7 @@ import java.util.*
  *
  * @author zhangchaozhou
  */
-class FileManagerActivity : BaseActivity() {
+class FileManagerActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

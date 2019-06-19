@@ -1,7 +1,5 @@
 package com.salton123.musicdownloader;
 
-import android.os.Debug;
-
 import com.salton123.app.BaseApplication;
 
 /**
@@ -13,7 +11,6 @@ import com.salton123.app.BaseApplication;
 public class XApp extends BaseApplication {
     @Override
     public void onCreate() {
-        Debug.startMethodTracing("/sdcard/183/debug.trace");
         super.onCreate();
     }
 }

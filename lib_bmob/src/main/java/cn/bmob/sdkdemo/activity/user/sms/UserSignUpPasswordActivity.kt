@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import cn.bmob.sdkdemo.R
 import com.salton123.bmob.helper.BmobHelper
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_signup_password.*
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_user_signup_password.*
  *
  * @author zhangchaozhou
  */
-class UserSignUpPasswordActivity : BaseActivity() {
+class UserSignUpPasswordActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

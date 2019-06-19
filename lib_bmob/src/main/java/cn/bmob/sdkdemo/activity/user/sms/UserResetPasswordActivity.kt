@@ -8,7 +8,7 @@ import cn.bmob.sdkdemo.R
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.UpdateListener
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_user_reset_password.*
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_user_reset_password.*
  *
  * @author zhangchaozhou
  */
-class UserResetPasswordActivity : BaseActivity() {
+class UserResetPasswordActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

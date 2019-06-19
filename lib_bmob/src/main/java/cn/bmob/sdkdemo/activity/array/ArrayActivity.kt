@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_array.*
 import java.util.*
 
@@ -18,7 +18,7 @@ import java.util.*
  *
  * @author zhangchaozhou
  */
-class ArrayActivity : BaseActivity() {
+class ArrayActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

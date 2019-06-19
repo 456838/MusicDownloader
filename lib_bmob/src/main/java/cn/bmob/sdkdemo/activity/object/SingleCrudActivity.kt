@@ -11,7 +11,7 @@ import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_crud_single.*
 
 /**
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_crud_single.*
  *
  * @author zhangchaozhou
  */
-class SingleCrudActivity : BaseActivity() {
+class SingleCrudActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

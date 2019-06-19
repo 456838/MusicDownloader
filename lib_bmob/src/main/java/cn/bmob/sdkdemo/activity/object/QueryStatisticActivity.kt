@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_query_statistics.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -21,7 +21,7 @@ import java.util.*
  * 统计查询
  * @author zhangchaozhou
  */
-class QueryStatisticActivity : BaseActivity() {
+class QueryStatisticActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 

@@ -5,7 +5,7 @@ import android.util.Log
 import cn.bmob.sdkdemo.R
 import cn.bmob.v3.util.AppUtils
 import com.google.android.material.snackbar.Snackbar
-import com.salton123.ui.base.BaseActivity
+import com.salton123.ui.biz.BaseTitleActivity
 import kotlinx.android.synthetic.main.activity_sign_verify.*
 
 /**
@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_sign_verify.*
  *
  * @author zhangchaozhou
  */
-class SignVerifyActivity : BaseActivity() {
+class SignVerifyActivity : BaseTitleActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
     }
 
